@@ -31297,6 +31297,12 @@ $)
       ROADEJUEGPQABSBUETHBUAUBUC $.
   $}
 
+  $( Negating the first argument swaps the last two arguments of a conditional
+     operator.  (Contributed by NM, 21-Jun-2007.) $)
+  ifnotdc $p |- ( DECID ph -> if ( -. ph , A , B ) = if ( ph , B , A ) ) $=
+    ( wdc wn wo cif wceq df-dc notnot iffalsed iftrue eqtr4d iffalse jaoi sylbi
+    ) ADAAEZFQBCGZACBGZHZAIATQARCSAQBCAJKACBLMQRBSQBCLACBNMOP $.
+
   $( Rewrite a conjunction in a conditional as two nested conditionals.
      (Contributed by Mario Carneiro, 28-Jul-2014.) $)
   ifandc $p |- ( DECID ph
@@ -156764,6 +156770,1280 @@ $)
 
 
 $(
+#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#
+  Basic number theory
+#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#
+$)
+
+
+$(
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+  Quadratic residues and the Legendre symbol
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+  If the congruence ` ( ( x ^ 2 ) mod p ) = ( n mod p ) ` has a solution we say
+  that ` n ` is a _quadratic residue_ ` mod p `.  If the congruence has no
+  solution we say that ` n ` is a _quadratic nonresidue_ ` mod p `, see
+  definition in [ApostolNT] p. 178.  The _Legendre symbol_ ` ( n /L p ) ` is
+  defined in a way that its value is ` 1 ` if ` n ` is a quadratic residue
+  ` mod p ` and ` -u 1 ` if ` n ` is a quadratic nonresidue ` mod p ` (and
+  ` 0 ` if ` p ` divides ` n `).
+
+  Originally, the Legendre symbol ` ( N /L P ) ` was defined for odd primes
+  ` P ` only (and arbitrary integers ` N `) by Adrien-Marie Legendre in 1798,
+  see definition in [ApostolNT] p. 179.  It was generalized to be defined for
+  any positive odd integer by Carl Gustav Jacob Jacobi in 1837 (therefore
+  called "Jacobi symbol" since then), see definition in [ApostolNT] p. 188.
+  Finally, it was generalized to be defined for any integer by Leopold
+  Kronecker in 1885 (therefore called "Kronecker symbol" since then).  The
+  definition ~ df-lgs for the "Legendre symbol" ` /L ` is actually the
+  definition of the "Kronecker symbol".  Since only one definition (and one
+  class symbol) are provided in set.mm, the names "Legendre symbol", "Jacobi
+  symbol" and "Kronecker symbol" are used synonymously for ` /L `, but mostly
+  it is called "Legendre symbol", even if it is used in the context of a
+  "Jacobi symbol" or "Kronecker symbol".
+
+$)
+
+  $c /L $.
+
+  $( Extend class notation with the Legendre symbol function. $)
+  clgs $a class /L $.
+
+  ${
+    $d a m n $.
+    $( Define the Legendre symbol (actually the Kronecker symbol, which extends
+       the Legendre symbol to all integers, and also the Jacobi symbol, which
+       restricts the Kronecker symbol to positive odd integers).  See
+       definition in [ApostolNT] p. 179 resp. definition in [ApostolNT] p. 188.
+       (Contributed by Mario Carneiro, 4-Feb-2015.) $)
+    df-lgs $a |- /L = ( a e. ZZ , n e. ZZ |-> if ( n = 0 ,
+      if ( ( a ^ 2 ) = 1 , 1 , 0 ) , ( if ( ( n < 0 /\ a < 0 ) , -u 1 , 1 ) x.
+      ( seq 1 ( x. , ( m e. NN |-> if ( m e. Prime ,
+        ( if ( m = 2 , if ( 2 || a , 0 , if ( ( a mod 8 ) e. { 1 , 7 } ,
+          1 , -u 1 ) ) , ( ( ( ( a ^ ( ( m - 1 ) / 2 ) ) + 1 ) mod m ) - 1 ) )
+            ^ ( m pCnt n ) ) , 1 ) ) ) ` ( abs ` n ) ) ) ) ) $.
+  $}
+
+  $( ` { -u 1 , 0 , 1 } ` is the set of all integers with absolute value at
+     most ` 1 ` .  (Contributed by AV, 13-Jul-2021.) $)
+  zabsle1 $p |- ( Z e. ZZ -> ( Z e. { -u 1 , 0 , 1 }
+                               <-> ( abs ` Z ) <_ 1 ) ) $=
+    ( cz wcel c1 cneg cc0 cabs cfv cle wbr wceq fveq2 eqbrtri eqbrtrdi wa cr wi
+    w3o adantl com12 ctp eltpi ax-1cn absnegi abs1 eqtri 1le1 abs0 0le1 syl zre
+    3jaoi 1red absled cn elz 3mix2 a1d nnle1eq1 biimpac 3mix3d elnnz1 lenegcon2
+    ex wb mpancom neg1rr a1i id letri3d 3mix1 eqcoms syl6bir adantr sylbid impd
+    com13 sylbi imp eltpg mpbird exp32 impcom impbid2 ) ABCZADEZFDUACZAGHZDIJZW
+    GAWFKZAFKZADKZRZWIAWFFDUBWJWIWKWLWJWHWFGHZDIAWFGLWNDDIWNDGHZDDUCUDUEUFUGMNW
+    KWHFGHZDIAFGLWPFDIUHUIMNWLWHWODIADGLWODDIUEUGMNULUJWEWIWFAIJZADIJZOZWGWEADA
+    UKWEUMUNWEAPCZWKAUOCZAEZUOCZRZOWSWGQZAUPXDWTXEXDWTWSWGXDWTWSOZOWGWMXDXFWMWK
+    XFWMQZXAXCWKWMXFWKWJWLUQURXFXAWMWSXAWMQZWTWRXHWQWRXAWMWRXAOWLWJWKXAWRWLAUSU
+    TVAVDSSTXCXBBCZDXBIJZOXGXBVBXJXGXIXJWTWSWMWTXJWSWMQZWTXJAWFIJZXKDPCWTXJXLVE
+    WTUMDAVCVFWSXLWTWMWQXLWTWMQZQWRWQXLXMWTWQXLOZWMWTXNWFAKWMWTWFAWFPCWTVGVHWTV
+    IVJWMAWFWJWKWLVKVLVMTVDVNVQVOTVPSVRULVSXFWGWMVEZXDWTXOWSAWFFDPVTVNSWAWBWCVR
+    VOWD $.
+
+  $( When ` a ` is coprime to the prime ` p ` , ` a ^ ( ( p - 1 ) / 2 ) ` is
+     equivalent ` mod p ` to ` 1 ` or ` -u 1 ` , and so adding ` 1 ` makes it
+     equivalent to ` 0 ` or ` 2 ` .  (Contributed by Mario Carneiro,
+     4-Feb-2015.) $)
+  lgslem1 $p |- ( ( A e. ZZ /\ P e. ( Prime \ { 2 } ) /\ -. P || A ) ->
+    ( ( ( A ^ ( ( P - 1 ) / 2 ) ) + 1 ) mod P ) e. { 0 , 2 } ) $=
+    ( cz wcel cprime c2 cdvds wbr c1 cmin cexp cmo cc0 wceq syl syl2anc cn0 a1i
+    co wb csn cdif wn w3a cdiv caddc cpr wo cmul cphi cfv eldifi 3ad2ant2 prmnn
+    cn cgcd simp1 prmz gcdcomd simp3 coprm mpbid eulerth syl3anc phiprm nnm1nn0
+    eqtrd eqeltrd zexpcl 1zzd moddvds nn0cnd 2cnd 2ap0 divcanap1d eqtr4d oveq2d
+    cap zcnd 2nn0 oddprm nnnn0d expmuld oveq1d oveq2i eqtr4di cc ax-1cn sylancl
+    sq1 subsq breqtrd peano2zd peano2zm euclemma dvdsval3 2z cq cle clt zq mp1i
+    0le2 wne eldifsni zapne mpbird 2re nnred cuz prmuz2 eluzle leltapd syl22anc
+    cr modqid eqeq2d df-2 pnpcan2d syl5eq breq2d 3bitr3rd orbi12d zmodcld elprg
+    ) ACDZBEFUAZUBDZBAGHUCZUDZABIJSZFUESZKSZIUFSZBLSZMFUGDZYOMNZYOFNZUHZYJBYNGH
+    ZBYMIJSZGHZUHZYSYJBYNUUAUISZGHZUUCYJBABUJUKZKSZIJSZUUDGYJUUGBLSIBLSNZBUUHGH
+    ZYJBUODZYFABUPSZINUUIYJBEDZUUKYHYFUUMYIBEYGULUMZBUNOZYFYHYIUQZYJUULBAUPSZIY
+    JABUUPYJUUMBCDZUUNBUROZUSYJYIUUQINZYFYHYIUTYJUUMYFYIUUTTUUNUUPBAVAPVBVGABVC
+    VDYJUUKUUGCDZICDUUIUUJTUUOYJYFUUFQDUVAUUPYJUUFYKQYJUUMUUFYKNUUNBVEOZYJUUKYK
+    QDUUOBVFOZVHAUUFVIPYJVJUUGIBVKVDVBYJUUHYMFKSZIFKSZJSZUUDYJUUHUVDIJSUVFYJUUG
+    UVDIJYJUUGAYLFUISZKSUVDYJUUFUVGAKYJUUFYKUVGUVBYJYKFYJYKUVCVLYJVMFMVRHYJVNRV
+    OVPVQYJAYLFYJAUUPVSFQDYJVTRYJYLYHYFYLUODYIBWAUMWBZWCVGWDUVEIUVDJWJWEWFYJYMW
+    GDIWGDZUVFUUDNYJYMYJYFYLQDYMCDZUUPUVHAYLVIPZVSZWHYMIWKWIVGWLYJUUMYNCDZUUACD
+    ZUUEUUCTUUNYJYMUVKWMZYJUVJUVNUVKYMWNOBYNUUAWOVDVBYJYTYQUUBYRYJUUKUVMYTYQTUU
+    OUVOBYNWPPYJYOFBLSZNZBYNFJSZGHZYRUUBYJUUKUVMFCDZUVQUVSTUUOUVOUVTYJWQRYNFBVK
+    VDYJUVPFYOYJFWRDZBWRDZMFWSHZFBWTHZUVPFNUVTUWAYJWQFXAXBYJUURUWBUUSBXAOUWCYJX
+    CRYJUWDBFVRHZYJUWEBFXDZYHYFUWFYIBEFXEUMYJUURUVTUWEUWFTUUSWQBFXFWIXGYJFBFXOD
+    YJXHRYJBUUOXIYJBFXJUKDZFBWSHYJUUMUWGUUNBXKOFBXLOXMXGFBXPXNXQYJUVRUUABGYJUVR
+    YNIIUFSZJSUUAFUWHYNJXRWEYJYMIIUVLUVIYJWHRZUWIXSXTYAYBYCVBYJYOQDYPYSTYJYNBUV
+    OUUOYDYOMFQYEOXG $.
+
+  ${
+    lgslem2.z $e |- Z = { x e. ZZ | ( abs ` x ) <_ 1 } $.
+    $( The set ` Z ` of all integers with absolute value at most ` 1 ` contains
+       ` { -u 1 , 0 , 1 } ` .  (Contributed by Mario Carneiro, 4-Feb-2015.) $)
+    lgslem2 $p |- ( -u 1 e. Z /\ 0 e. Z /\ 1 e. Z ) $=
+      ( c1 cneg wcel cc0 cz cle wbr 1le1 cabs cfv wceq fveq2 abs1 eqtrdi breq1d
+      elrab2 mpbir2an neg1z cv ax-1cn absnegi eqtri 0z 0le1 abs0 1z 3pm3.2i ) D
+      EZBFZGBFZDBFZULUKHFDDIJZUAKAUBZLMZDIJZUOAUKHBUPUKNZUQDDIUSUQUKLMZDUPUKLOU
+      TDLMZDDUCUDPUEQRCSTUMGHFGDIJZUFUGURVBAGHBUPGNZUQGDIVCUQGLMGUPGLOUHQRCSTUN
+      DHFUOUIKURUOADHBUPDNZUQDDIVDUQVADUPDLOPQRCSTUJ $.
+
+    $d x A $.  $d x B $.
+    $( The set ` Z ` of all integers with absolute value at most ` 1 ` is
+       closed under multiplication.  (Contributed by Mario Carneiro,
+       4-Feb-2015.) $)
+    lgslem3 $p |- ( ( A e. Z /\ B e. Z ) -> ( A x. B ) e. Z ) $=
+      ( cz wcel cabs cfv c1 cle wbr wa cmul co wceq cr jca fveq2 breq1d zcn cc0
+      zmulcl ad2ant2r cc absmul syl2an wi abscl absge0 syl adantr 1red lemul12a
+      adantl syl22anc imp an4s 1t1e1 breqtrdi eqbrtrd cv elrab2 anbi12i 3imtr4i
+      ) BFGZBHIZJKLZMZCFGZCHIZJKLZMZMZBCNOZFGZVOHIZJKLZMBDGZCDGZMVODGVNVPVRVFVJ
+      VPVHVLBCUCUDVNVQVGVKNOZJKVFVJVQWAPZVHVLVFBUEGZCUEGZWBVJBUAZCUAZBCUFUGUDVN
+      WAJJNOZJKVFVJVHVLWAWGKLZVFVJMZVHVLMZWHWIVGQGZUBVGKLZMZJQGZVKQGZUBVKKLZMZW
+      NWJWHUHVFWMVJVFWCWMWEWCWKWLBUIBUJRUKULWIUMZVJWQVFVJWDWQWFWDWOWPCUICUJRUKU
+      OWRVGJVKJUNUPUQURUSUTVARVSVIVTVMAVBZHIZJKLZVHABFDWSBPWTVGJKWSBHSTEVCXAVLA
+      CFDWSCPWTVKJKWSCHSTEVCVDXAVRAVOFDWSVOPWTVQJKWSVOHSTEVCVE $.
+
+    $( Lemma for ~ lgsfcl2 .  (Contributed by Mario Carneiro, 4-Feb-2015.)
+       (Proof shortened by AV, 19-Mar-2022.) $)
+    lgslem4 $p |- ( ( A e. ZZ /\ P e. ( Prime \ { 2 } ) ) ->
+      ( ( ( ( A ^ ( ( P - 1 ) / 2 ) ) + 1 ) mod P ) - 1 ) e. Z ) $=
+      ( wcel cprime c2 wa cdvds wbr c1 cmin co wceq cn adantl syl cc0 eqeltrdi
+      cz csn cdif cdiv cexp caddc cmo wn clt wb eldifi simpl prmdvdsexp syl3anc
+      oddprm biimpar prmgt1 ad2antlr p1modz1 syl2anc oveq1d cneg lgslem2 simp2i
+      1m1e0 eqeltri w3a cpr wo lgslem1 elpri oveq1 df-neg simp1i eqeltrri 2m1e1
+      simp3i jaoi 3syl 3expa wdc prmnn dvdsdc exmiddc mpjaodan ) BUAFZCGHUBZUCF
+      ZIZCBJKZBCLMNHUDNZUENZLUFNCUGNZLMNZDFZWJUHZWIWJIZWNLLMNZDWQWMLLMWQCWLJKZL
+      CUIKZWMLOWIWSWJWICGFZWFWKPFZWSWJUJWHXAWFCGWGUKZQWFWHULZWHXBWFCUOQBCWKUMUN
+      UPWHWTWFWJWHXAWTXCCUQRURWLCUSUTVAWRSDVELVBZDFZSDFZLDFZADEVCZVDVFTWFWHWPWO
+      WFWHWPVGWMSHVHFWMSOZWMHOZVIWOBCVJWMSHVKXJWOXKXJWNSLMNZDWMSLMVLXEXLDLVMXFX
+      GXHXIVNVOTXKWNHLMNZDWMHLMVLXMLDVPXFXGXHXIVQVFTVRVSVTWIWJWAZWJWPVIWICPFZWF
+      XNWHXOWFWHXAXOXCCWBRQXDCBWCUTWJWDRWE $.
+  $}
+
+  ${
+    $d A a b m n x y z $.  $d A k n $.  $d A k v $.  $d F a m x y z $.
+    $d F k v $.  $d M n x $.  $d N a m n x y z $.  $d N k n $.  $d N k v $.
+    $d Z a b n y z $.
+    lgsval.1 $e |- F = ( n e. NN |-> if ( n e. Prime ,
+        ( if ( n = 2 , if ( 2 || A , 0 , if ( ( A mod 8 ) e. { 1 , 7 } ,
+          1 , -u 1 ) ) , ( ( ( ( A ^ ( ( n - 1 ) / 2 ) ) + 1 ) mod n ) - 1 ) )
+            ^ ( n pCnt N ) ) , 1 ) ) $.
+    $( Value of the Legendre symbol at an arbitrary integer.  (Contributed by
+       Mario Carneiro, 4-Feb-2015.) $)
+    lgsval $p |- ( ( A e. ZZ /\ N e. ZZ ) -> ( A /L N ) = if ( N = 0 ,
+      if ( ( A ^ 2 ) = 1 , 1 , 0 ) , ( if ( ( N < 0 /\ A < 0 ) , -u 1 , 1 ) x.
+      ( seq 1 ( x. , F ) ` ( abs ` N ) ) ) ) ) $=
+      ( cz wcel cc0 wceq c2 cexp co c1 cif wa cmul wdc cn cmo oveq1d vk clt wbr
+      vv va vm cneg cabs cfv cseq clgs 0zd zsqcl ad2antrr zdceq syl2anc ifcldcd
+      1zzd wn neg1z a1i simpr zdclt syl2an2r simpl dcan2 sylc nnuz cprime cdvds
+      cv c8 c7 cpr cmin caddc cpc eleq1w eqeq1 oveq1 oveq2d id oveq12d ifbieq2d
+      cdiv ifbieq1d cn0 znegcld wo 8nn zmodcld nn0zd nnzi sylancl dcor wb elprg
+      7nn syl dcbid mpbird ad5antr 2nn simp-5l dvdsdc prm2orodd orcomd ad2antlr
+      ecased prmnn nnnn0d nn0oddm1d2 mpbid zexpcl peano2zd zsubcld nnz ifcldadc
+      2z wne simp-4r neqne ad3antlr pczcl syl12anc prmdc adantl fvmptd3 eqeltrd
+      zmulcl seqf simplr nnabscl ffvelrnd zmulcld eqeq1d ifbid breq1d anbi12d
+      cmpt breq2d eleq1d ifeq12d ifeq1d mpteq2dv eqtr4di seqeq3d fveq2d fveq12d
+      ifbieq12d df-lgs ovmpoga mpd3an3 ) AFGZDFGZDHIZAJKLZMIZMHNZDHUBUCZAHUBUCZ
+      OZMUGZMNZDUHUIZPCMUJZUIZPLZNZFGADUKLUVIIUUNUUOOZUUPUUSUVHFUVJUUPOZUURMHFU
+      VKURZUVKULUVKUUQFGZMFGZUURQUUNUVMUUOUUPAUMUNUVLUUQMUOUPUQUVJUUPUSZOZUVDUV
+      GUVPUVBUVCMFUVCFGUVPUTVAUVPURZUVPUUTQZUVAQZUVBQUVJUUOUVOHFGZUVRUUNUUOVBZU
+      VPULZDHVCVDUVJUUNUVOUVTUVSUUNUUOVEUWBAHVCVDUUTUVAVFVGUQUVPRFUVEUVFUVPUAUD
+      PFCMRVHUVQUVPUAVKZRGZOZUWCCUIUWCVIGZUWCJIZJAVJUCZHAVLSLZMVMVNZGZMUVCNZNZA
+      UWCMVOLZJWELZKLZMVPLZUWCSLZMVOLZNZUWCDVQLZKLZMNZFUWEBUWCBVKZVIGZUXDJIZUWM
+      AUXDMVOLZJWELZKLZMVPLZUXDSLZMVOLZNZUXDDVQLZKLZMNZUXCRCFEUXDUWCIZUXEUWFUXO
+      UXBMBUAVIVRUXQUXMUWTUXNUXAKUXQUXFUWGUXLUWSUWMUXDUWCJVSUXQUXKUWRMVOUXQUXJU
+      WQUXDUWCSUXQUXIUWPMVPUXQUXHUWOAKUXQUXGUWNJWEUXDUWCMVOVTTWATUXQWBWCTWDUXDU
+      WCDVQVTWCWFUVPUWDVBZUWEUWFUXBMFUWEUWFOZUWTFGUXAWGGZUXBFGUXSUWGUWMUWSFUXSU
+      WGOZUWHHUWLFUYAULUYAUWKMUVCFUYAURZUYAMUYBWHUUNUWKQZUUOUVOUWDUWFUWGUUNUYCU
+      WIMIZUWIVMIZWIZQZUUNUYDQZUYEQZUYGUUNUWIFGZUVNUYHUUNUWIUUNAVLUUNWBVLRGUUNW
+      JVAWKZWLZUUNURUWIMUOUPUUNUYJVMFGUYIUYLVMWRWMUWIVMUOWNUYDUYEWOVGUUNUWKUYFU
+      UNUWIWGGUWKUYFWPUYKUWIMVMWGWQWSWTXAXBUQUYAJRGZUUNUWHQUYMUYAXCVAUUNUUOUVOU
+      WDUWFUWGXDJAXEUPUQUXSUWGUSZOZUWRMUYOUWRUYOUWQUWCUYOUWPUYOUUNUWOWGGZUWPFGU
+      UNUUOUVOUWDUWFUYNXDUYOJUWCVJUCUSZUYPUYOUYQUWGUXSUYNVBUWFUYQUWGWIUWEUYNUWF
+      UWGUYQUWCXFXGXHXIUWFUYQUYPWPZUWEUYNUWFUWCWGGUYRUWFUWCUWCXJXKUWCXLWSXHXMAU
+      WOXNUPXOUWEUWDUWFUYNUXRUNWKWLUYOURXPUXSUWCFGZJFGUWGQUWDUYSUVPUWFUWCXQXHXS
+      UWCJUOWNXRUXSUWFUUODHXTZUXTUWEUWFVBUUNUUOUVOUWDUWFYAUVOUYTUVJUWDUWFDHYBZY
+      CUWCDYDYEUWTUXAXNUPUWEUWFUSOURUWDUWFQUVPUWCYFYGXRZYHVUBYIUYSUDVKZFGOUWCVU
+      CPLFGUVPUWCVUCYJYGYKUVPUUOUYTUVERGUUNUUOUVOYLUVOUYTUVJVUAYGDYMUPYNYOUVJUU
+      OUVTUUPQUWAUVJULDHUOUPXRUEUFADFFUFVKZHIZUEVKZJKLZMIZMHNZVUDHUBUCZVUFHUBUC
+      ZOZUVCMNZVUDUHUIZPBRUXEUXFJVUFVJUCZHVUFVLSLZUWJGZMUVCNZNZVUFUXHKLZMVPLZUX
+      DSLZMVOLZNZUXDVUDVQLZKLZMNZYTZMUJZUIZPLZNUVIUKFVUFAIZVUDDIZOZVUEUUPVUIVVK
+      UUSUVHVVNVUDDHVVLVVMVBZYPVVNVUHUURMHVVNVUGUUQMVVNVUFAJKVVLVVMVEZTYPYQVVNV
+      UMUVDVVJUVGPVVNVULUVBUVCMVVNVUJUUTVUKUVAVVNVUDDHUBVVOYRVVNVUFAHUBVVPYRYSY
+      QVVNVUNUVEVVIUVFVVNVVHCPMVVNVVHBRUXPYTCVVNBRVVGUXPVVNUXEVVFUXOMVVNVVDUXMV
+      VEUXNKVVNUXFVUSUWMVVCUXLVVNVUOUWHVURUWLHVVNVUFAJVJVVPUUAVVNVUQUWKMUVCVVNV
+      UPUWIUWJVVNVUFAVLSVVPTUUBYQWDVVNVVBUXKMVOVVNVVAUXJUXDSVVNVUTUXIMVPVVNVUFA
+      UXHKVVPTTTTUUCVVNVUDDUXDVQVVOWAWCUUDUUEEUUFUUGVVNVUDDUHVVOUUHUUIWCUUJBUFU
+      EUUKUULUUM $.
+
+    $( Value of the function ` F ` which defines the Legendre symbol at the
+       primes.  (Contributed by Mario Carneiro, 4-Feb-2015.)  (Revised by Jim
+       Kingdon, 4-Nov-2024.) $)
+    lgsfvalg $p |- ( ( A e. ZZ /\ N e. NN /\ M e. NN ) -> ( F ` M ) = if (
+  M e. Prime , ( if ( M = 2 , if ( 2 || A , 0 , if ( ( A mod 8 ) e. { 1 , 7 } ,
+          1 , -u 1 ) ) , ( ( ( ( A ^ ( ( M - 1 ) / 2 ) ) + 1 ) mod M ) - 1 ) )
+            ^ ( M pCnt N ) ) , 1 ) ) $=
+      ( cz wcel cn c2 wceq cmo co c1 c7 cif cmin cexp cn0 wdc w3a cv cprime wbr
+      cdvds cc0 cpr cneg cdiv caddc cpc eleq1 eqeq1 oveq1 oveq1d oveq2d oveq12d
+      c8 id ifbieq2d ifbieq1d simp3 wa 0zd neg1z a1i wo 8nn zmodcld nn0zd zdceq
+      1zzd syl2anc 7nn nnzi sylancl dcor sylc elprg syl dcbid 3ad2ant1 ad2antrr
+      wb mpbird ifcldcd 2nn simpll1 dvdsdc simpr prm2orodd orcomd ecased nnnn0d
+      wn ad2antlr nn0oddm1d2 mpbid zexpcl peano2zd zsubcld simpl3 nnzd ifcldadc
+      2z simpl2 pccld prmdc fvmptd3 ) AGHZEIHZDIHZUAZBDBUBZUCHZXNJKZJAUEUDZUFAU
+      RLMZNOUGHZNNUHZPZPZAXNNQMZJUIMZRMZNUJMZXNLMZNQMZPZXNEUKMZRMZNPDUCHZDJKZYB
+      ADNQMZJUIMZRMZNUJMZDLMZNQMZPZDEUKMZRMZNPICGFXNDKZXOYLYKUUBNXNDUCULUUCYIYT
+      YJUUARUUCXPYMYHYSYBXNDJUMUUCYGYRNQUUCYFYQXNDLUUCYEYPNUJUUCYDYOARUUCYCYNJU
+      IXNDNQUNUOUPUOUUCUSUQUOUTXNDEUKUNUQVAXJXKXLVBZXMYLUUBNGXMYLVCZYTGHUUASHUU
+      BGHUUEYMYBYSGUUEYMVCZXQUFYAGUUFVDUUFXSNXTGUUFVLXTGHUUFVEVFXMXSTZYLYMXJXKU
+      UGXLXJUUGXRNKZXROKZVGZTZXJUUHTZUUITZUUKXJXRGHZNGHUULXJXRXJAURXJUSURIHXJVH
+      VFVIZVJZXJVLXRNVKVMXJUUNOGHUUMUUPOVNVOXROVKVPUUHUUIVQVRXJXSUUJXJXRSHXSUUJ
+      WDUUOXRNOSVSVTWAWEWBWCWFUUFJIHZXJXQTUUQUUFWGVFXJXKXLYLYMWHJAWIVMWFUUEYMWO
+      ZVCZYRNUUSYRUUSYQDUUSYPUUSXJYOSHZYPGHXJXKXLYLUURWHUUSJDUEUDWOZUUTUUSUVAYM
+      UUEUURWJYLUVAYMVGXMUURYLYMUVADWKWLWPWMUUSDSHUVAUUTWDUUSDXMXLYLUURUUDWCZWN
+      DWQVTWRAYOWSVMWTUVBVIVJUUSVLXAUUEDGHJGHYMTUUEDXJXKXLYLXBXCXEDJVKVPXDUUEDE
+      XMYLWJXJXKXLYLXFXGYTUUAWSVMXMYLWOVCVLXMXLYLTUUDDXHVTXDXI $.
+
+    ${
+      lgsfcl2.z $e |- Z = { x e. ZZ | ( abs ` x ) <_ 1 } $.
+      $( The function ` F ` is closed in integers with absolute value less than
+         ` 1 ` (namely ` { -u 1 , 0 , 1 } ` , see ~ zabsle1 ).  (Contributed by
+         Mario Carneiro, 4-Feb-2015.) $)
+      lgsfcl2 $p |- ( ( A e. ZZ /\ N e. ZZ /\ N =/= 0 ) -> F : NN --> Z ) $=
+        ( cz wcel cc0 c2 wceq co c1 c7 cle cabs a1i wdc va vb wne w3a cn cprime
+        cv cdvds wbr c8 cmo cpr cneg cif cmin cdiv cexp caddc cpc wa cn0 0z cfv
+        0le1 fveq2 abs0 eqtrdi breq1d elrab2 mpbir2an 1z 1le1 abs1 neg1z ax-1cn
+        absnegi eqtri wo simp1 8nn zmodcld nn0zd zdceq sylancl 7nn nnzi dcor wb
+        sylc elprg syl dcbid mpbird ifcldcd 2nn dvdsdc syl2anc ad3antrrr wn csn
+        cdif simpl1 ad2antrr simplr simpr neqned eldifsn sylanbrc nnzd ifcldadc
+        lgslem4 2z simpll2 simpll3 pczcl syl12anc cc ssrab3 zsscn sstri lgslem3
+        expcllem prmdc fmptd ) BIJZEIJZEKUCZUDZCUECUGZUFJZYILMZLBUHUIZKBUJUKNZO
+        PULJZOOUMZUNZUNZBYIOUONLUPNUQNOURNYIUKNOUONZUNZYIEUSNZUQNZOUNFDYHYIUEJZ
+        UTZYJUUAOFUUCYJUTZYSFJYTVAJZUUAFJUUDYKYQYRFYHYQFJUUBYJYKYHYLKYPFKFJZYHU
+        UFKIJKOQUIZVBVDAUGZRVCZOQUIZUUGAKIFUUHKMZUUIKOQUUKUUIKRVCKUUHKRVEVFVGVH
+        HVIVJSYHYNOYOFOFJZYHUULOIJZOOQUIZVKVLUUJUUNAOIFUUHOMZUUIOOQUUOUUIORVCZO
+        UUHORVEVMVGVHHVIVJZSYOFJZYHUURYOIJUUNVNVLUUJUUNAYOIFUUHYOMZUUIOOQUUSUUI
+        YORVCZOUUHYORVEUUTUUPOOVOVPVMVQVGVHHVIVJSYHYNTYMOMZYMPMZVRZTZYHUVATZUVB
+        TZUVDYHYMIJZUUMUVEYHYMYHBUJYEYFYGVSZUJUEJYHVTSWAZWBZVKYMOWCWDYHUVGPIJUV
+        FUVJPWEWFYMPWCWDUVAUVBWGWIYHYNUVCYHYMVAJYNUVCWHUVIYMOPVAWJWKWLWMWNYHLUE
+        JZYEYLTUVKYHWOSUVHLBWPWQWNWRUUDYKWSZUTZYEYIUFLWTXAJZYRFJUUCYEYJUVLYEYFY
+        GUUBXBXCUVMYJYILUCUVNUUCYJUVLXDUVMYILUUDUVLXEXFYIUFLXGXHABYIFHXKWQUUDYI
+        IJLIJYKTUUDYIYHUUBYJXDXIXLYILWCWDXJUUDYJYFYGUUEUUCYJXEYEYFYGUUBYJXMYEYF
+        YGUUBYJXNYIEXOXPUAUBYSYTFFIXQUUJAIFHXRXSXTAUAUGUBUGFHYAUUQYBWQUULUUCYJW
+        SUTUUQSUUCUUBYJTYHUUBXEYIYCWKXJGYD $.
+
+      $( The Legendre symbol is an element of ` Z ` .  (Contributed by Mario
+         Carneiro, 4-Feb-2015.) $)
+      lgscllem $p |- ( ( A e. ZZ /\ N e. ZZ ) -> ( A /L N ) e. Z ) $=
+        ( cz wcel wa co cc0 c1 cif cmul a1i wdc syl2anc cn vy vz clgs wceq cexp
+        c2 clt wbr cneg cabs cseq lgsval lgslem2 simp3i simp2i zsqcl 1zzd zdceq
+        cfv syl2an2r ifcldcd adantr wn simp1i simpr 0zd zdclt syldan dcan2 sylc
+        nnuz cv wf df-ne lgsfcl2 3expa sylan2br ffvelrnda lgslem3 adantl simplr
+        wne seqf neqned nnabscl ffvelrnd ifcldadc eqeltrd ) BIJZEIJZKZBEUCLEMUD
+        ZBUFUELZNUDZNMOZEMUGUHZBMUGUHZKZNUIZNOZEUJUSZPDNUKZUSZPLZOFBCDEGULWKWLW
+        OXDFWKWOFJWLWKWNNMFNFJZWKWSFJZMFJZXEAFHUMZUNQZXGWKXFXGXEXHUOQWIWMIJWJNI
+        JWNRBUPWKUQWMNURUTVAVBWKWTFJWLVCZXCFJXDFJWKWRWSNFXFWKXFXGXEXHVDQXIWKWPR
+        ZWQRZWRRWKWJMIJZXKWIWJVEZWKVFZEMVGSWIWJXMXLXOBMVGVHWPWQVIVJVAWKXJKZTFXA
+        XBXPUAUBPFDNTVKXPUQXPTFUAVLZDXJWKEMWBZTFDVMZEMVNWIWJXRXSABCDEFGHVOVPVQV
+        RXQFJUBVLZFJKXQXTPLFJXPAXQXTFHVSVTWCXPWJXRXATJWIWJXJWAXPEMWKXJVEWDEWESW
+        FAWTXCFHVSUTWKWJXMWLRXNXOEMURSWGWH $.
+    $}
+
+    $( Closure of the function ` F ` which defines the Legendre symbol at the
+       primes.  (Contributed by Mario Carneiro, 4-Feb-2015.) $)
+    lgsfcl $p |- ( ( A e. ZZ /\ N e. ZZ /\ N =/= 0 ) -> F : NN --> ZZ ) $=
+      ( vx cz wcel cc0 wne w3a cn cv cabs cfv c1 cle wbr crab wf lgsfcl2 ssrab2
+      wss eqid fss sylancl ) AGHDGHDIJKLFMNOPQRZFGSZCTUHGUCLGCTFABCDUHEUHUDUAUG
+      FGUBLUHGCUEUF $.
+
+    $( The function ` F ` has magnitude less or equal to ` 1 ` .  (Contributed
+       by Mario Carneiro, 4-Feb-2015.) $)
+    lgsfle1 $p |- ( ( ( A e. ZZ /\ N e. ZZ /\ N =/= 0 ) /\ M e. NN ) ->
+      ( abs ` ( F ` M ) ) <_ 1 ) $=
+      ( vx cz wcel cc0 wne w3a cn wa cfv cv cabs c1 cle wbr crab eqid ffvelrnda
+      lgsfcl2 wceq fveq2 breq1d elrab simprbi syl ) AHIEHIEJKLZDMINDCOZGPZQOZRS
+      TZGHUAZIZULQOZRSTZUKMUPDCGABCEUPFUPUBUDUCUQULHIUSUOUSGULHUMULUEUNURRSUMUL
+      QUFUGUHUIUJ $.
+
+    $( Lemma for ~ lgsval2 .  (Contributed by Mario Carneiro, 4-Feb-2015.) $)
+    lgsval2lem $p |- ( ( A e. ZZ /\ N e. Prime ) -> ( A /L N ) =
+      if ( N = 2 , if ( 2 || A , 0 , if ( ( A mod 8 ) e. { 1 , 7 } ,
+      1 , -u 1 ) ) , ( ( ( ( A ^ ( ( N - 1 ) / 2 ) ) + 1 ) mod N ) - 1 ) ) ) $=
+      ( cz wcel wa co cc0 wceq c2 cexp c1 cif cfv cmul cn adantl syl vk vv clgs
+      vx vy cprime clt wbr cneg cabs cseq cdvds c8 cmo cpr cmin cdiv caddc prmz
+      c7 lgsval sylan2 prmnn nnne0d neneqd iffalsed cle wn nnnn0d nn0ge0d cr wb
+      0re nnred lenlt sylancr mpbid intnanrd absidd fveq2d 1zzd cuz prmuz2 df-2
+      fveq2i eleqtrdi wne simpll ad2antlr adantr lgsfcl syl3anc elnnuz ffvelrnd
+      cv wf biimpri zmulcl seq3m1 1t1e1 a1i uz2m1nn nnuz cfz cpc elfznn elfzelz
+      lgsfvalg zred ltm1d peano2rem elfzle2 lensymd pm2.65i eleq1 con2i simpllr
+      mtbiri dvdsprm syl2an2 simpr ad2antrr syl2anc mpbird oveq2d cc id zmodcld
+      wdc nn0zd zdceq sylancl ifcldcd zcnd eqtrd 3eqtrd oveq1d oveq12d exp1d
+      cn0 mtbird pceq0 0zd neg1z wo 8nn 7nn nnzi dcor sylc elprg dcbid 2nn mpan
+      dvdsdc ad3antrrr simpl csn simplr neqned eldifsn sylanbrc oddprm peano2zd
+      zexpcl peano2zm 2z ifcldadc adantlr exp0d prmdc ifeq1dadc seq3id3 mulid2d
+      cdif ifiddc iftrue nncnd 1z eqtr3d eqeq1 oveq1 ifbieq2d ralrimiva rspcdva
+      pcid eleq1d ) AFGZDUFGZHZADUCIZDJKZALMINKNJOZDJUGUHZAJUGUHZHZNUIZNOZDUJPZ
+      QCNUKZPZQIZOZUXBDLKZLAULUHZJAUMUNIZNUTUOGZNUWQOZOZADNUPIZLUQIZMIZNURIZDUN
+      IZNUPIZOZUWIUWHDFGZUWKUXCKDUSZABCDEVAVBUWJUWLUWMUXBUWJDJUWJDUWIDRGZUWHDVC
+      SZVDZVEVFUWJUXBNDCPZQIZUYBUXPUWJUWRNUXAUYBQUWJUWPUWQNUWJUWNUWOUWJJDVGUHZU
+      WNVHZUWJDUWJDUXTVIVJZUWJJVKGDVKGZUYDUYEVLVMUWJDUXTVNZJDVOVPVQVRVFUWJUXADU
+      WTPZUYBUWJUWSDUWTUWJDUYHUYFVSVTUWJUYIUXJUWTPZUYBQIUYCUYBUWJUAUBQFCNDUWJWA
+      ZUWJDLWBPZNNURIZWBPUWIDUYLGZUWHDWCSZLUYMWBWDWEWFUWJUAWOZNWBPZGZHZRFUYPCUY
+      SUWHUXQDJWGZRFCWPZUWHUWIUYRWHUWIUXQUWHUYRUXRWIUWJUYTUYRUYAWJABCDEWKZWLUYR
+      UYPRGZUWJVUCUYRUYPWMWQSWNUYPFGUBWOZFGHUYPVUDQIFGUWJUYPVUDWRSWSUWJUYJNUYBQ
+      UWJUDUEQFCNUXJNNNQINKUWJWTXAUWJUXJRUYQUWJUYNUXJRGUYODXBTXCWFUWJUDWOZNUXJX
+      DIZGZHZVUECPZVUEUFGZVUELKZUXIAVUENUPIZLUQIZMIZNURIZVUEUNIZNUPIZOZVUEDXEIZ
+      MIZNOZVUJNNOZNVUHUWHUXSVUERGZVUIVVAKUWHUWIVUGWHUWJUXSVUGUXTWJVUGVVCUWJVUE
+      UXJXFSZABCVUEDEXHWLVUHVUJVUTNNVUHVUJHZVUTVURJMINVVEVUSJVURMVVEVUSJKZVUEDU
+      LUHZVHZVVEVVGVUEDKZVUGVVIVHUWJVUJVVIVUGVVIVUGDVUFGZVVJUXJDUGUHVVJDVVJDDNU
+      XJXGXIZXJVVJDUXJVVKVVJUYGUXJVKGVVKDXKTDNUXJXLXMXNVUEDVUFXOXRXPWIVUJVUEUYL
+      GVUHUWIVVGVVIVLVUEWCUWHUWIVUGVUJXQDVUEXSXTUUAVVEVUJUXSVVFVVHVLVUHVUJYAUWJ
+      UXSVUGVUJUXTYBVUEDUUBYCYDYEVVEVURUWJVUJVURYFGZVUGUWJVUJHZVURVVMVUKUXIVUQF
+      UWHUXIFGUWIVUJVUKUWHUXEJUXHFUWHUUCUWHUXGNUWQFUWHWAZUWQFGUWHUUDXAUWHUXGYIU
+      XFNKZUXFUTKZUUEZYIZUWHVVOYIZVVPYIZVVRUWHUXFFGZNFGZVVSUWHUXFUWHAUMUWHYGUMR
+      GUWHUUFXAYHZYJZVVNUXFNYKYCUWHVWAUTFGVVTVWDUTUUGUUHUXFUTYKYLVVOVVPUUIUUJUW
+      HUXGVVQUWHUXFYTGUXGVVQVLVWCUXFNUTYTUUKTUULYDYMLRGUWHUXEYIUUMLAUUOUUNYMUUP
+      VVMVUKVHZHZVUPFGVUQFGVWFVUPVWFVUOVUEVWFVUNVWFUWHVUMYTGVUNFGUWJUWHVUJVWEUW
+      HUWIUUQZYBVWFVUMVWFVUEUFLUURUVOGZVUMRGVWFVUJVUELWGVWHUWJVUJVWEUUSVWFVUELV
+      VMVWEYAUUTVUEUFLUVAUVBVUEUVCTVIAVUMUVEYCUVDVUJVVCUWJVWEVUEVCWIYHYJVUPUVFT
+      VUJVUEFGZUWJLFGZVUKYIVUEUSVWJVVMUVGXAVUELYKXTUVHYNZUVIUVJYOVUHVVCVUJYIZVV
+      DVUEUVKTZUVLVUHVWLVVBNKVWMVUJNUVPTYPUYKUWJVUEUYQGZHZRFVUECVWOUWHUXQUYTVUA
+      UWHUWIVWNWHUWIUXQUWHVWNUXRWIUWJUYTVWNUYAWJVUBWLVWNVVCUWJVVCVWNVUEWMWQSWNV
+      WIUEWOZFGHVUEVWPQIFGUWJVUEVWPWRSUVMYQUWJUYBUWJUYBUWJRFDCUWJUWHUXQUYTVUAVW
+      GUWIUXQUWHUXRSUYAVUBWLUXTWNYNUVNZYPYOYRVWQUWJUYBUWIUXPDDXEIZMIZNOZVWSUXPU
+      WJUWHUXSUXSUYBVWTKVWGUXTUXTABCDDEXHWLUWIVWTVWSKUWHUWIVWSNUVQSUWJVWSUXPNMI
+      UXPUWJVWRNUXPMUWJDDNMIZXEIZVWRNUWJVXADDXEUWJDUWJDUXTUVRYSYEUWJUWIVWBVXBNK
+      UWHUWIYAZUVSNDUWFYLUVTYEUWJUXPUWJVVLUXPYFGUDUFDVVIVURUXPYFVVIVUKUXDVUQUXO
+      UXIVUEDLUWAVVIVUPUXNNUPVVIVUOUXMVUEDUNVVIVUNUXLNURVVIVUMUXKAMVVIVULUXJLUQ
+      VUEDNUPUWBYQYEYQVVIYGYRYQUWCUWGUWJVVLUDUFVWKUWDVXCUWEYSYOYPYPYP $.
+
+    $( Lemma for ~ lgsval4 .  (Contributed by Mario Carneiro, 4-Feb-2015.) $)
+    lgsval4lem $p |- ( ( A e. ZZ /\ N e. ZZ /\ N =/= 0 ) -> F = ( n e. NN |->
+      if ( n e. Prime , ( ( A /L n ) ^ ( n pCnt N ) ) , 1 ) ) ) $=
+      ( vm cz wcel cc0 cn cv c2 wceq cmo co c1 cif cmin cexp cmpt wne w3a cdvds
+      cprime wbr c8 c7 cpr cneg cdiv caddc cpc clgs lgsval2lem 3ad2antl1 oveq1d
+      wa eqid adantlr wdc prmdc adantl ifeq1dadc mpteq2dva eqtr4id ) AGHZDGHZDI
+      UAZUBZCBJBKZUDHZVJLMLAUCUEIAUFNOPUGUHHPPUIQQZAVJPROLUJOSOPUKOVJNOPROQZVJD
+      ULOZSOZPQZTBJVKAVJUMOZVNSOZPQZTEVIBJVSVPVIVJJHZUQVKVRVOPVIVKVRVOMVTVIVKUQ
+      VQVMVNSVFVGVKVQVMMVHAFFJFKZUDHWALMVLAWAPROLUJOSOPUKOWANOPROQWAVJULOSOPQTZ
+      VJWBURUNUOUPUSVTVKUTVIVJVAVBVCVDVE $.
+  $}
+
+  ${
+    $d n x A $.  $d n x N $.  $d n Z $.
+    lgscl2.z $e |- Z = { x e. ZZ | ( abs ` x ) <_ 1 } $.
+    $( The Legendre symbol is an integer with absolute value less than or equal
+       to 1.  (Contributed by Mario Carneiro, 4-Feb-2015.) $)
+    lgscl2 $p |- ( ( A e. ZZ /\ N e. ZZ ) -> ( A /L N ) e. Z ) $=
+      ( vn cn cv cprime wcel c2 wceq cdvds wbr cmo co c1 cif cmin cexp cc0 cneg
+      c8 c7 cpr cdiv caddc cpc cmpt eqid lgscllem ) ABFFGFHZIJULKLKBMNUABUCOPQU
+      DUEJQQUBRRBULQSPKUFPTPQUGPULOPQSPRULCUHPTPQRUIZCDUMUJEUK $.
+  $}
+
+  ${
+    $d n x y A $.  $d x y F $.  $d n x y N $.  $d n P $.
+    $( The Legendre symbol when the second argument is zero.  (Contributed by
+       Mario Carneiro, 4-Feb-2015.) $)
+    lgs0 $p |- ( A e. ZZ -> ( A /L 0 ) = if ( ( A ^ 2 ) = 1 , 1 , 0 ) ) $=
+      ( vn cz wcel cc0 clgs co wceq c2 cexp c1 cif clt wbr wa cfv cmul cmo cmin
+      eqid cneg cabs cn cv cprime cdvds c8 c7 cpr cdiv caddc cpc cmpt 0z lgsval
+      cseq mpan2 iftruei eqtrdi ) ACDZAEFGZEEHZAIJGKHKELZEEMNAEMNOKUAZKLEUBPQBU
+      CBUDZUEDVEIHIAUFNEAUGRGKUHUIDKVDLLAVEKSGIUJGJGKUKGVERGKSGLVEEULGJGKLUMZKU
+      PPQGZLZVCUTECDVAVHHUNABVFEVFTUOUQVBVCVGETURUS $.
+
+    $( The Legendre symbol is an integer.  (Contributed by Mario Carneiro,
+       4-Feb-2015.) $)
+    lgscl $p |- ( ( A e. ZZ /\ N e. ZZ ) -> ( A /L N ) e. ZZ ) $=
+      ( vx cz wcel wa cv cabs cfv c1 cle crab clgs co ssrab2 eqid lgscl2 sselid
+      wbr ) ADEBDEFCGHIJKSZCDLZDABMNTCDOCABUAUAPQR $.
+
+    $( The Legendre symbol has absolute value less than or equal to 1.
+       Together with ~ lgscl this implies that it takes values in
+       ` { -u 1 , 0 , 1 } ` .  (Contributed by Mario Carneiro, 4-Feb-2015.) $)
+    lgsle1 $p |- ( ( A e. ZZ /\ N e. ZZ ) -> ( abs ` ( A /L N ) ) <_ 1 ) $=
+      ( vx cz wcel wa clgs co cv cabs cfv cle wbr crab eqid lgscl2 fveq2 breq1d
+      c1 wceq elrab simprbi syl ) ADEBDEFABGHZCIZJKZSLMZCDNZEZUDJKZSLMZCABUHUHO
+      PUIUDDEUKUGUKCUDDUEUDTUFUJSLUEUDJQRUAUBUC $.
+
+    $( The Legendre symbol at a prime (this is the traditional domain of the
+       Legendre symbol, except for the addition of prime ` 2 ` ).  (Contributed
+       by Mario Carneiro, 4-Feb-2015.) $)
+    lgsval2 $p |- ( ( A e. ZZ /\ P e. Prime ) -> ( A /L P ) = if ( P = 2 ,
+      if ( 2 || A , 0 , if ( ( A mod 8 ) e. { 1 , 7 } , 1 , -u 1 ) ) ,
+        ( ( ( ( A ^ ( ( P - 1 ) / 2 ) ) + 1 ) mod P ) - 1 ) ) ) $=
+      ( vn cn cv cprime wcel c2 wceq cdvds wbr cc0 c8 cmo co c1 cif cmin cexp
+      c7 cpr cneg cdiv caddc cpc cmpt eqid lgsval2lem ) ACCDCEZFGUIHIHAJKLAMNOP
+      TUAGPPUBQQAUIPROHUCOSOPUDOUINOPROQUIBUEOSOPQUFZBUJUGUH $.
+
+    $( The Legendre symbol at ` 2 ` .  (Contributed by Mario Carneiro,
+       4-Feb-2015.) $)
+    lgs2 $p |- ( A e. ZZ -> ( A /L 2 ) = if ( 2 || A , 0 ,
+      if ( ( A mod 8 ) e. { 1 , 7 } , 1 , -u 1 ) ) ) $=
+      ( cz wcel c2 clgs co wceq cdvds wbr cc0 c8 cmo c1 cpr cneg cmin cdiv cexp
+      c7 cif caddc cprime 2prm lgsval2 mpan2 eqid iftruei eqtrdi ) ABCZADEFZDDG
+      ZDAHIJAKLFMSNCMMOTTZADMPFDQFRFMUAFDLFMPFZTZULUIDUBCUJUNGUCADUDUEUKULUMDUF
+      UGUH $.
+
+    $( The Legendre symbol at an odd prime (this is the traditional domain of
+       the Legendre symbol).  (Contributed by Mario Carneiro, 4-Feb-2015.) $)
+    lgsval3 $p |- ( ( A e. ZZ /\ P e. ( Prime \ { 2 } ) ) -> ( A /L P ) =
+        ( ( ( ( A ^ ( ( P - 1 ) / 2 ) ) + 1 ) mod P ) - 1 ) ) $=
+      ( cprime c2 csn cdif wcel cz wne wa clgs co cmin cdiv cexp caddc cmo wceq
+      c1 cif eldifsn cdvds wbr cc0 c8 c7 cneg lgsval2 ifnefalse sylan9eq anasss
+      cpr sylan2b ) BCDEFGAHGZBCGZBDIZJABKLZABSMLDNLOLSPLBQLSMLZRZBCDUAUNUOUPUS
+      UNUOJUPUQBDRDAUBUCUDAUEQLSUFULGSSUGTTZURTURABUHBDUTURUIUJUKUM $.
+
+    $( The Legendre symbol is equivalent to ` a ^ ( ( p - 1 ) / 2 ) ` ,
+       ` mod p ` .  This theorem is also called "Euler's criterion", see
+       theorem 9.2 in [ApostolNT] p. 180, or a representation of Euler's
+       criterion using the Legendre symbol, (Contributed by Mario Carneiro,
+       4-Feb-2015.) $)
+    lgsvalmod $p |- ( ( A e. ZZ /\ P e. ( Prime \ { 2 } ) ) ->
+      ( ( A /L P ) mod P ) = ( ( A ^ ( ( P - 1 ) / 2 ) ) mod P ) ) $=
+      ( cz wcel cprime co c1 caddc cmo cmin cq syl zq recnd oveq1d cc cr ax-1cn
+      wceq sylancl c2 csn cdif wa clgs cneg cdiv cexp eldifi adantl prmz syldan
+      lgscl peano2zd cn0 cn oddprm nnnn0d zexpcl neg1z prmnn nnq nngt0d lgsval3
+      mp1i eqcomd zmodcld 1cnd zred subadd2d mpbid cc0 clt wbr modqabs2 syl3anc
+      nn0cnd eqtrd modqadd1 peano2re negsub pncan 3eqtr3d ) ACDZBEUAUBZUCDZUDZA
+      BUEFZGHFZGUFZHFZBIFABGJFUAUGFZUHFZGHFZWJHFZBIFWHBIFWMBIFWGWIWNWJBWGWICDWI
+      KDWGWHWDWFBCDZWHCDWGBEDZWPWFWQWDBEWEUIUJZBUKLABUMULZUNWIMLWGWNCDWNKDZWGWM
+      WDWFWLUODWMCDWGWLWFWLUPDWDBUQUJURAWLUSULZUNZWNMLZWJCDWJKDWGUTWJMVEWGBUPDZ
+      BKDZWGWQXDWRBVALZBVBLZWGBXFVCZWGWIBIFWNBIFZBIFZXIWGWIXIBIWGXIGJFZWHSWIXIS
+      WGWHXKABVDVFWGXIGWHWGXIWGWNBXBXFVGVQWGVHWGWHWGWHWSVIZNZVJVKOWGWTXEVLBVMVN
+      XJXISXCXGXHWNBVOVPVRVSWGWKWHBIWGWKWIGJFZWHWGWIPDGPDZWKXNSWGWIWGWHQDWIQDXL
+      WHVTLNRWIGWATWGWHPDXOXNWHSXMRWHGWBTVROWGWOWMBIWGWOWNGJFZWMWGWNPDXOWOXPSWG
+      WNWGWMQDWNQDWGWMXAVIZWMVTLNRWNGWATWGWMPDXOXPWMSWGWMXQNRWMGWBTVROWC $.
+
+    lgsval4.1 $e |- F = ( n e. NN |->
+      if ( n e. Prime , ( ( A /L n ) ^ ( n pCnt N ) ) , 1 ) ) $.
+    $( Restate ~ lgsval for nonzero ` N ` , where the function ` F ` has been
+       abbreviated into a self-referential expression taking the value of
+       ` /L ` on the primes as given.  (Contributed by Mario Carneiro,
+       4-Feb-2015.) $)
+    lgsval4 $p |- ( ( A e. ZZ /\ N e. ZZ /\ N =/= 0 ) -> ( A /L N ) =
+      ( if ( ( N < 0 /\ A < 0 ) , -u 1 , 1 ) x.
+        ( seq 1 ( x. , F ) ` ( abs ` N ) ) ) ) $=
+      ( cz wcel cc0 clgs co wceq c2 cexp c1 cif clt wbr cfv cmul cn wne wa cneg
+      w3a cabs cv cprime cdvds c8 cmo c7 cpr cmin cdiv caddc cpc cmpt cseq eqid
+      lgsval 3adant3 simp3 neneqd iffalsed eqtr4di seqeq3d fveq1d oveq2d 3eqtrd
+      lgsval4lem ) AFGZDFGZDHUAZUDZADIJZDHKZALMJNKNHOZDHPQAHPQUBNUCZNOZDUERZSBT
+      BUFZUGGZWALKLAUHQHAUIUJJNUKULGNVROOAWANUMJLUNJMJNUOJWAUJJNUMJOWADUPJZMJNO
+      UQZNURZRZSJZOZWGVSVTSCNURZRZSJVKVLVOWHKVMABWDDWDUSZUTVAVNVPVQWGVNDHVKVLVM
+      VBVCVDVNWFWJVSSVNVTWEWIVNWDCSNVNWDBTWBAWAIJWCMJNOUQCABWDDWKVJEVEVFVGVHVI
+      $.
+
+    $( Closure of the function ` F ` which defines the Legendre symbol at the
+       primes.  (Contributed by Mario Carneiro, 4-Feb-2015.) $)
+    lgsfcl3 $p |- ( ( A e. ZZ /\ N e. ZZ /\ N =/= 0 ) -> F : NN --> ZZ ) $=
+      ( cz wcel cc0 wne w3a cn c2 cmo co c1 cif cmin cexp cmpt wf cv wceq cdvds
+      cprime wbr c8 cpr cneg cdiv caddc cpc eqid lgsfcl clgs lgsval4lem eqtr4di
+      c7 feq1d mpbid ) AFGDFGDHIJZKFBKBUAZUDGZVALUBLAUCUEHAUFMNOUQUGGOOUHPPAVAO
+      QNLUINRNOUJNVAMNOQNPVADUKNZRNOPSZTKFCTABVDDVDULZUMUTKFVDCUTVDBKVBAVAUNNVC
+      RNOPSCABVDDVEUOEUPURUS $.
+
+    $( Same as ~ lgsval4 for positive ` N ` .  (Contributed by Mario Carneiro,
+       4-Feb-2015.) $)
+    lgsval4a $p |- ( ( A e. ZZ /\ N e. NN ) ->
+      ( A /L N ) = ( seq 1 ( x. , F ) ` N ) ) $=
+      ( vx vy cz wcel cn wa co cc0 clt wbr c1 cfv cmul adantl syl3anc clgs cneg
+      cif cabs cseq wne wceq simpl nnz nnne0 lgsval4 wn nngt0 cr wi nnre ltnsym
+      0re sylancr mpd intnanrd iffalsed cn0 nnnn0 nn0ge0d absidd fveq2d oveq12d
+      nnuz 1zzd cv wf lgsfcl3 ffvelrnda zmulcl seqf simpr ffvelrnd zcnd mulid2d
+      3eqtrd ) AHIZDJIZKZADUALZDMNOZAMNOZKZPUBZPUCZDUDQZRCPUEZQZRLZPDWLQZRLWOWD
+      WBDHIZDMUFZWEWNUGWBWCUHZWCWPWBDUISZWCWQWBDUJSZABCDEUKTWDWJPWMWORWDWHWIPWD
+      WFWGWDMDNOZWFULZWCXAWBDUMSWDMUNIDUNIZXAXBUOURWCXCWBDUPSZMDUQUSUTVAVBWDWKD
+      WLWDDXDWDDWCDVCIWBDVDSVEVFVGVHWDWOWDWOWDJHDWLWDFGRHCPJVIWDVJWDJHFVKZCWDWB
+      WPWQJHCVLWRWSWTABCDEVMTVNXEHIGVKZHIKXEXFRLHIWDXEXFVOSVPWBWCVQVRVSVTWA $.
+  $}
+
+  $( The value of the Legendre symbol is either -1 or 0 or 1.  (Contributed by
+     AV, 13-Jul-2021.) $)
+  lgscl1 $p |- ( ( A e. ZZ /\ N e. ZZ ) -> ( A /L N ) e. { -u 1 , 0 , 1 } ) $=
+    ( cz wcel wa clgs co c1 cneg cc0 ctp cabs cfv cle wbr lgsle1 wb zabsle1 syl
+    lgscl mpbird ) ACDBCDEZABFGZHIJHKDZUCLMHNOZABPUBUCCDUDUEQABTUCRSUA $.
+
+  ${
+    $d k n x y B $.  $d k x F $.  $d k n x y M $.  $d x P $.  $d k x ph $.
+    $d k n p x y A $.  $d k n p x y N $.
+    $( The Legendre symbol is either even or odd under negation with respect to
+       the second parameter according to the sign of the first.  (Contributed
+       by Mario Carneiro, 4-Feb-2015.) $)
+    lgsneg $p |- ( ( A e. ZZ /\ N e. ZZ /\ N =/= 0 ) -> ( A /L -u N ) =
+      ( if ( A < 0 , -u 1 , 1 ) x. ( A /L N ) ) ) $=
+      ( vn cz wcel cc0 wbr wa c1 cif cfv cmul cn co wceq adantl wdc 0z syl cc
+      vx vy wne w3a cneg clt cabs cv cprime clgs cpc cexp cmpt wn iftrue oveq1d
+      cseq simpl2 zdclt mpan2 oveq2 neg1mulneg1e1 eqtrdi ax-1cn mulm1i biantrud
+      ifsbdc simpr ifbid oveq2d cle simpl3 necomd zltlen sylancl mpbiran2d zred
+      wb le0neg1d cr renegcld lenlt sylancr 3bitrd znegcl ifnotdc eqtrd 3eqtr3d
+      3eqtrd 1t1e1 iffalse intnand iffalsed oveq12d 3eqtr4a wo exmiddc mpjaodan
+      0re simp1 eqcomd cq pcneg syl2anc adantlr ifeq1dadc mpteq2dva seqeq3d zcn
+      zq prmdc 3ad2ant2 absnegd fveq12d neg1cn a1i ifcldcd dcan2 sylc nnuz 1zzd
+      eqid lgsfcl3 ffvelrnda zmulcl seqf nnabscl 3adant1 ffvelrnd mulassd simp3
+      zcnd negne0d lgsval4 syl3anc 3eqtr4d ) ADEZBDEZBFUCZUDZBUEZFUFGZAFUFGZHZI
+      UEZIJZUUAUGKZLCMCUHZUIEZAUUHUJNZUUHUUAUKNZULNZIJZUMZIUQZKZLNZUUCUUEIJZBFU
+      FGZUUCHZUUEIJZBUGKZLCMUUIUUJUUHBUKNZULNZIJZUMZIUQZKZLNZLNZAUUAUJNZUURABUJ
+      NZLNYTUUQUURUVALNZUVHLNUVJYTUUFUVMUUPUVHLYTUVMUUFYTUUCUVMUUFOUUCUNZYTUUCH
+      ZUVMUUEUVALNZUUBUUEIJZUUFUVOUURUUEUVALUUCUURUUEOYTUUCUUEIUOPUPUVOUUEUUSUU
+      EIJZLNZUUSIUUEJZUVPUVQUVOYRUVSUVTOZYQYRYSUUCURZYRUUSQZUWAYRFDEZUWCRBFUSUT
+      ZUUSUUEIUVSIUUEUVRUUEOUVSUUEUUELNIUVRUUEUUELVAVBVCUVRIOUVSUUEILNUUEUVRIUU
+      ELVAIVDVEVCVGSSUVOUVRUVAUUELUVOUUSUUTUUEIUVOUUCUUSYTUUCVHZVFVIVJUVOUVTUUB
+      UNZIUUEJZUVQUVOUUSUWGIUUEUVOUUSBFVKGZFUUAVKGZUWGUVOUUSUWIFBUCZUVOBFYQYRYS
+      UUCVLVMUVOYRUWDUUSUWIUWKHVRUWBRBFVNVOVPUVOBUVOBUWBVQZVSUVOFVTEUUAVTEUWJUW
+      GVRWSUVOBUWLWAFUUAWBWCWDVIUVOYRUWHUVQOZUWBYRUUBQZUWMYRUUADEZUWDUWNBWEZRUU
+      AFUSVOUUBIUUEWFSSWGWHUVOUUBUUDUUEIUVOUUCUUBUWFVFVIWIYTUVNHZIILNIUVMUUFWJU
+      WQUURIUVAILUVNUURIOYTUUCUUEIWKPUWQUUTUUEIUWQUUCUUSYTUVNVHZWLWMWNUWQUUDUUE
+      IUWQUUCUUBUWRWLWMWOYTUUCQZUUCUVNWPYTYQUWDUWSYQYRYSWTZRAFUSVOZUUCWQSWRXAYT
+      UUGUVBUUOUVGYTUUNUVFLIYTCMUUMUVEYTUUHMEZHUUIUULUVDIYTUUIUULUVDOUXBYTUUIHZ
+      UUKUVCUUJULUXCUUIBXBEZUUKUVCOYTUUIVHUXCYRUXDYQYRYSUUIURBXJSBUUHXCXDVJXEUX
+      BUUIQYTUUHXKPXFXGXHYTBYRYQBTEYSBXIXLZXMXNWNYTUURUVAUVHYTUUCUUEITUUETEYTXO
+      XPZITEYTVDXPZUXAXQYTUUTUUEITUXFUXGYTUWCUWSUUTQYRYQUWCYSUWEXLUXAUUSUUCXRXS
+      XQYTUVHYTMDUVBUVGYTUAUBLDUVFIMXTYTYAYTMDUAUHZUVFACUVFBUVFYBZYCYDUXHDEUBUH
+      ZDEHUXHUXJLNDEYTUXHUXJYEPYFYRYSUVBMEYQBYGYHYIYLYJWGYTYQUWOUUAFUCUVKUUQOUW
+      TYRYQUWOYSUWPXLYTBUXEYQYRYSYKYMACUUNUUAUUNYBYNYOYTUVLUVIUURLACUVFBUXIYNVJ
+      YP $.
+
+    $( The Legendre symbol for nonnegative first parameter is unchanged by
+       negation of the second.  (Contributed by Mario Carneiro, 4-Feb-2015.) $)
+    lgsneg1 $p |- ( ( A e. NN0 /\ N e. ZZ ) -> ( A /L -u N ) = ( A /L N ) ) $=
+      ( cn0 wcel cz wa cc0 wceq cneg clgs co wne neg0 simpr negeqd 3eqtr4a cmul
+      c1 3ad2ant1 syl2anc oveq2d w3a clt wbr cif nn0z lgsneg syl3an1 wn nn0nlt0
+      iffalsed oveq1d simp2 lgscl zcnd mulid2d 3eqtrd 3expa wdc 0zd zdceq sylib
+      wo dcne mpjaodan ) ACDZBEDZFZBGHZABIZJKZABJKZHZBGLZVHVIFZVJBAJVOGIGVJBMVO
+      BGVHVINZOVPPUAVFVGVNVMVFVGVNUBZVKAGUCUDZRIZRUEZVLQKZRVLQKVLVFAEDZVGVNVKWA
+      HAUFZABUGUHVQVTRVLQVQVRVSRVFVGVRUIVNAUJSUKULVQVLVQVLVQWBVGVLEDVFVGWBVNWCS
+      VFVGVNUMABUNTUOUPUQURVHVIUSZVIVNVCVHVGGEDWDVFVGNVHUTBGVATBGVDVBVE $.
+
+    $( The Legendre (Jacobi) symbol is preserved under reduction ` mod n ` when
+       ` n ` is odd.  (Contributed by Mario Carneiro, 4-Feb-2015.) $)
+    lgsmod $p |- ( ( A e. ZZ /\ N e. NN /\ -. 2 || N ) ->
+      ( ( A mod N ) /L N ) = ( A /L N ) ) $=
+      ( vn cz wcel cn c2 cdvds wbr cmo co cexp c1 wceq cmin cq syl syl2anc cc0
+      zq wn w3a cmul cv cprime clgs cpc cif cmpt cseq cfv cdiv caddc cn0 zmodcl
+      3adant3 nn0zd ad2antrr csn cdif wne simpr adantr simpl3 notbid syl5ibrcom
+      wa breq1 necon2ad eldifsn sylanbrc oddprm nnnn0d zexpcl simpll1 mp1i prmz
+      imp ad2antlr prmnn nngt0d simp2 nnzd zsubcld clt modqabs2 syl3anc moddvds
+      1z mpbid dvdstrd mpbird modqexp modqadd1 lgsval3 3eqtr4d lgscl zcnd exp0d
+      wb oveq1d eqtr4d pceq0 biimpar oveq2d wdc adantl exmiddc mpjaodan adantlr
+      wo dvdsdc prmdc ifeq1dadc mpteq2dva seqeq3d fveq1d eqid lgsval4a ) ADEZBF
+      EZGBHIZUAZUBZBUCCFCUDZUEEZABJKZYEUFKZYEBUGKZLKZMUHZUIZMUJZUKZBUCCFYFAYEUF
+      KZYILKZMUHZUIZMUJZUKZYGBUFKZABUFKZYDBYMYSYDYLYRUCMYDCFYKYQYDYEFEZVGYFYJYP
+      MYDYFYJYPNZUUCYDYFVGZYEBHIZUUDUUFUAZUUEUUFVGZYHYOYILUUHYGYEMOKGULKZLKZMUM
+      KYEJKZMOKZAUUILKZMUMKYEJKZMOKZYHYOUUHUUKUUNMOUUHUUJUUMMYEUUHUUJDEZUUJPEUU
+      HYGDEZUUIUNEZUUPYDUUQYFUUFYDYGXTYAYGUNEYCABUOUPUQZURZUUHUUIUUHYEUEGUSUTEZ
+      UUIFEUUHYFYEGVAZUVAUUEYFUUFYDYFVBZVCUUEUUFUVBUUEUUFYEGUUEUUGYEGNZYCXTYAYC
+      YFVDUVDUUFYBYEGBHVHVEVFVIVRYEUEGVJVKZYEVLQVMZYGUUIVNRUUJTQUUHUUMDEZUUMPEU
+      UHXTUURUVGXTYAYCYFUUFVOZUVFAUUIVNRUUMTQMDEMPEUUHWIMTVPUUHYEDEZYEPEYFUVIYD
+      UUFYEVQZVSZYETQZUUHYEYFUUCYDUUFYEVTZVSZWAZUUHYGAUUIYEUUTUVHUVFUVLUVOUUHYG
+      YEJKAYEJKNZYEYGAOKZHIZUUHYEBUVQUVKUUHBYDYAYFUUFXTYAYCWBZURZWCZUUHYGAUUTUV
+      HWDUUEUUFVBUUHYGBJKYGNZBUVQHIZUUHAPEZBPEZSBWEIUWBUUHXTUWDUVHATQUUHBDEZUWE
+      UWABTQUUHBUVTWAABWFWGUUHYAUUQXTUWBUWCWTUVTUUTUVHYGABWHWGWJWKUUHUUCUUQXTUV
+      PUVRWTUVNUUTUVHYGAYEWHWGWLWMWNXAUUHUUQUVAYHUULNUUTUVEYGYEWORUUHXTUVAYOUUO
+      NUVHUVEAYEWORWPXAUUEUUGVGZYHSLKZYOSLKZYJYPUWGUWHMUWIUWGYHUWGYHUWGUUQUVIYH
+      DEYDUUQYFUUGUUSURYFUVIYDUUGUVJVSZYGYEWQRWRWSUWGYOUWGYOUWGXTUVIYODEXTYAYCY
+      FUUGVOUWJAYEWQRWRWSXBUWGYISYHLUUEYISNZUUGUUEYFYAUWKUUGWTUVCYDYAYFUVSVCZYE
+      BXCRXDZXEUWGYISYOLUWMXEWPUUEUUFXFZUUFUUGXKUUEUUCUWFUWNYFUUCYDUVMXGUUEBUWL
+      WCYEBXLRUUFXHQXIXJUUCYFXFYDYEXMXGXNXOXPXQYDUUQYAUUAYNNUUSUVSYGCYLBYLXRXSR
+      XTYAUUBYTNYCACYRBYRXRXSUPWP $.
+
+    $( Lemma for ~ lgsdi and ~ lgsdir : the sign part of the Legendre symbol is
+       multiplicative.  (Contributed by Mario Carneiro, 4-Feb-2015.) $)
+    lgsdilem $p |- ( ( ( A e. ZZ /\ B e. ZZ /\ N e. ZZ ) /\
+                     ( A =/= 0 /\ B =/= 0 ) ) ->
+      if ( ( N < 0 /\ ( A x. B ) < 0 ) , -u 1 , 1 ) =
+      ( if ( ( N < 0 /\ A < 0 ) , -u 1 , 1 ) x.
+        if ( ( N < 0 /\ B < 0 ) , -u 1 , 1 ) ) ) $=
+      ( cz wcel cc0 wa clt wbr cmul co c1 cif wceq wb 0z adantr cr recnd ifbid
+      w3a wne cneg wn simplrr biantrud simpl2 zltlen sylancr simpl1 zred mul01d
+      renegcld mulneg1d breq12d 0red lt0neg1d biimpa syl112anc remulcld 3bitr4d
+      cle ltmul2 3bitr2rd 0re lenlt bitrd wdc zdclt neg1mulneg1e1 eqtrdi ax-1cn
+      mpan2 mulm1i ifsbdc ifnotdc eqtr4d 3ad2ant2 ad2antrr iftrue adantl oveq1d
+      oveq2 syl iffalse cc neg1cn a1i sylancl ifcldcd mulid2d simplrl neneqd wo
+      simpr ztri3or 3orass sylib orcomd ecased breq2d 3eqtrrd exmiddc biantrurd
+      w3o mpjaodan oveq12d 3eqtr3d intnanrd iffalsed 1t1e1 eqtr4di simpl3 ) ADE
+      ZBDEZCDEZUAZAFUBZBFUBZGZGZCFHIZYBABJKZFHIZGZLUCZLMZYBAFHIZGZYFLMZYBBFHIZG
+      ZYFLMZJKZNYBUDZYAYBGZYDYFLMZYHYFLMZYKYFLMZJKZYGYNYAYQYTNZYBYAYHUUAYHUDZYA
+      YHGZYQYFYSJKZYTUUCYQYKUDZYFLMZUUDUUCYDUUEYFLUUCYDFBVBIZUUEUUCUUGUUGXSGZFB
+      HIZYDUUCXSUUGXQXRXSYHUEUFUUCFDEZXOUUIUUHOPYAXOYHXNXOXPXTUGZQFBUHUIUUCAUCZ
+      FJKZUULBJKZHIZFYCUCZHIUUIYDUUCUUMFUUNUUPHUUCUULUUCUULUUCAYAAREZYHYAAXNXOX
+      PXTUJZUKZQZUMZSULUUCABUUCAUUTSUUCBYABREZYHYABUUKUKZQZSUNUOUUCFREZUVBUULRE
+      FUULHIZUUIUUOOUUCUPUVDUVAYAYHUVFYAAUUSUQURFBUULVCUSUUCYCYAYCREYHYAABUUSUV
+      CUTQUQVAVDUUCUVEUVBUUGUUEOVEUVDFBVFUIVGTXQUUDUUFNZXTYHXOXNUVGXPXOYKVHZUVG
+      XOUUJUVHPBFVIZVMUVHUUDYKLYFMUUFYKYFLUUDLYFYSYFNUUDYFYFJKLYSYFYFJWCVJVKYSL
+      NUUDYFLJKYFYSLYFJWCLVLVNVKVOYKYFLVPVQWDVRVSVQUUCYRYFYSJYHYRYFNYAYHYFLVTWA
+      WBVQYAUUBGZYTLYSJKYSYQUVJYRLYSJUUBYRLNYAYHYFLWEWAWBUVJYSUVJYKYFLWFYFWFEUV
+      JWGWHLWFEUVJVLWHUVJXOUUJUVHYAXOUUBUUKQPUVIWIWJWKUVJYKYDYFLUVJYKYCAFJKZHIZ
+      YDUVJUVBUVEUUQFAHIZYKUVLOYAUVBUUBUVCQUVJUPYAUUQUUBUUSQZUVJUVMAFNZUVJAFXQX
+      RXSUUBWLWMUVJUVOUVMUVJUVOUVMWNZYHYAUUBWOUVJYHUVPUVJYHUVOUVMXEZYHUVPWNUVJX
+      NUUJUVQYAXNUUBUURQPAFWPWIYHUVOUVMWQWRWSWTWSWTBFAVCUSUVJUVKFYCHUVJAUVJAUVN
+      SULXAVGTXBYAYHVHZYHUUBWNYAXNUUJUVRUURPAFVIWIYHXCWDXFQYPYDYEYFLYPYBYDYAYBW
+      OZXDTYPYRYJYSYMJYPYHYIYFLYPYBYHUVSXDTYPYKYLYFLYPYBYKUVSXDTXGXHYAYOGZYGLLJ
+      KZYNUVTYGLUWAUVTYEYFLUVTYBYDYAYOWOZXIXJXKXLUVTYJLYMLJUVTYIYFLUVTYBYHUWBXI
+      XJUVTYLYFLUVTYBYKUWBXIXJXGVQYAYBVHZYBYOWNYAXPUUJUWCXNXOXPXTXMPCFVIWIYBXCW
+      DXF $.
+
+    $( Lemma for ~ lgsdir2 .  (Contributed by Mario Carneiro, 4-Feb-2015.) $)
+    lgsdir2lem1 $p |- ( ( ( 1 mod 8 ) = 1 /\ ( -u 1 mod 8 ) = 7 ) /\
+      ( ( 3 mod 8 ) = 3 /\ ( -u 3 mod 8 ) = 5 ) ) $=
+      ( c1 c8 cmo co wceq c7 c3 c5 cq wcel cc0 cle wbr clt cn ax-mp mp4an caddc
+      nnq 8cn cneg wa 1nn 0le1 1lt8 modqid mulid2i oveq2i ax-1cn negcli negsubi
+      8nn cmul cmin 8m1e7 eqtri addcomli oveq1i qnegcl 8pos modqcyc 7nn 0re 7re
+      cz 1z 7pos ltleii 7lt8 3eqtr3i pm3.2i 3nn 3re 3pos 3lt8 3cn 5cn subaddrii
+      5p3e8 5nn 5re 5pos 5lt8 ) ABCDAEZAUAZBCDZFEZUBGBCDGEZGUAZBCDZHEZUBWDWGAIJ
+      ZBIJZKALMABNMWDAOJWLUCASPZBOJWMULBSPZUDUEABUFQWEABUMDZRDZBCDZFBCDZWFFWQFB
+      CWQWEBRDFWPBWERBTUGZUHBWEFTAUIUJBWERDBAUNDFBATUIUKUOUPUQUPURWEIJZAVEJZWMK
+      BNMZWRWFEWLXAWNAUSPVFWOUTWEBAVAQFIJZWMKFLMFBNMWSFEFOJXDVBFSPWOKFVCVDVGVHV
+      IFBUFQVJVKWHWKGIJZWMKGLMGBNMWHGOJXEVLGSPZWOKGVCVMVNVHVOGBUFQWIWPRDZBCDZHB
+      CDZWJHXGHBCXGWIBRDHWPBWIRWTUHBWIHTGVPUJBWIRDBGUNDHBGTVPUKBGHTVPVQHGBVQVPV
+      SUQVRUPUQUPURWIIJZXBWMXCXHWJEXEXJXFGUSPVFWOUTWIBAVAQHIJZWMKHLMHBNMXIHEHOJ
+      XKVTHSPWOKHVCWAWBVHWCHBUFQVJVKVK $.
+
+    ${
+      lgsdir2lem2.1 $e |- ( K e. ZZ /\ 2 || ( K + 1 ) /\
+        ( ( A e. ZZ /\ -. 2 || A ) ->
+          ( ( A mod 8 ) e. ( 0 ... K ) -> ( A mod 8 ) e. S ) ) ) $.
+      lgsdir2lem2.2 $e |- M = ( K + 1 ) $.
+      lgsdir2lem2.3 $e |- N = ( M + 1 ) $.
+      lgsdir2lem2.4 $e |- N e. S $.
+      $( Lemma for ~ lgsdir2 .  (Contributed by Mario Carneiro, 4-Feb-2015.) $)
+      lgsdir2lem2 $p |- ( N e. ZZ /\ 2 || ( N + 1 ) /\
+        ( ( A e. ZZ /\ -. 2 || A ) ->
+          ( ( A mod 8 ) e. ( 0 ... N ) -> ( A mod 8 ) e. S ) ) ) $=
+        ( cz wcel c2 c1 caddc co cdvds wbr cc0 cfz ax-1cn wn cmo simp1i peano2z
+        wa c8 wi ax-mp eqeltri simp2i wb 2z dvdsadd mp2an mpbi cc addcomi eqtri
+        zcn oveq1i df-2 add32i eqtr4i 2cn addassi breqtrri cmin wceq wo cuz cfv
+        elfzuz2 fzm1 syl ibi mvrraddi oveq2i eleq2s eleq2i simp3i syl5bi cn 2nn
+        8nn w3a c4 cmul 4z dvdsmul2 4t2e8 breqtri dvdsmod mpan2 mp3an12 biimpar
+        notbid id breqtrrid nsyl pm2.21d jaod syl5 eleq1 mpbiri a1i 3pm3.2i ) E
+        JKLEMNOZPQAJKZLAPQZUAZUEZAUFUBOZRESOKZXLBKZUGUGEDMNOZJHDJKZXOJKDCMNOZJG
+        CJKZXQJKZXRLXQPQZXKXLRCSOZKZXNUGUGZFUCZCUDUHZUIZDUDUHUILLXQNOZXGPXTLYGP
+        QZXRXTYCFUJZLJKZXSXTYHUKULYELXQUMUNUOXGLCNOZMNOYGEYKMNEMCNOZMNOZYKEXOYM
+        HDYLMNDXQYLGCMXRCUPKYDCUSUHZTUQURUTURYKMMNOZCNOYMLYOCNVAUTMCMTYNTVBVCVC
+        UTLCMVDYNTVEURVFXMXLREMVGOZSOZKZXLEVHZVIZXKXNXMYTXMERVJVKZKXMYTUKXLREVL
+        XLREVMVNVOXKYRXNYSYRXLRDMVGOZSOZKZXLDVHZVIZXKXNUUFXLRDSOZYQXLUUGKZUUFUU
+        HDUUAKUUHUUFUKXLRDVLXLRDVMVNVOYPDRSEDMXPDUPKYFDUSUHTHVPVQVRXKUUDXNUUEUU
+        DYBXKXNUUCYAXLUUBCRSDCMYNTGVPVQVSXRXTYCFVTWAXKUUEXNXKLXLPQZUUEXHUUIUAXJ
+        XHUUIXILWBKZUFWBKZXHUUIXIUKZWCWDUUJUUKXHWELUFPQUULLWFLWGOZUFPWFJKYJLUUM
+        PQWHULWFLWIUNWJWKLAUFWLWMWNWPWOUUELDXLPLXQDPYIGVFUUEWQWRWSWTXAXBYSXNUGX
+        KYSXNEBKIXLEBXCXDXEXAXBXF $.
+    $}
+
+    $( Lemma for ~ lgsdir2 .  (Contributed by Mario Carneiro, 4-Feb-2015.) $)
+    lgsdir2lem3 $p |- ( ( A e. ZZ /\ -. 2 || A ) ->
+      ( A mod 8 ) e. ( { 1 , 7 } u. { 3 , 5 } ) ) $=
+      ( cz wcel c2 cdvds wbr c8 co cc0 c7 cfz c1 c3 c5 caddc sselii lgsdir2lem2
+      cn wi c0 wn wa cmo cpr cun simpl 8nn zmodfz sylancl 8m1e7 oveq2i eleqtrdi
+      cmin c6 c4 cneg z0even 1pneg1e0 ax-1cn neg1cn addcomi eqtr3i breqtri noel
+      neg1z pm2.21i clt wceq neg1lt0 wb fzn mp2an mpbi eleq2s a1i 3pm3.2i 1e0p1
+      0z ssun1 1ex prid1 df-2 df-3 ssun2 3ex df-4 df-5 5nn elexi prid2 df-6 7nn
+      df-7 simp3i mpd ) ABCZDAEFUAZUBZAGUCHZIJKHZCZWSLJUDZMNUDZUEZCZWRWSIGLUMHZ
+      KHZWTWRWPGRCWSXGCWPWQUFUGAGUHUIXFJIKUJUKULJBCDJLOHEFWRXAXESSAXDNUNJAXDMUO
+      NAXDLDMAXDLUPZILXHBCZDXHLOHZEFWRWSIXHKHZCXESZSVEDIXJEUQLXHOHIXJURLXHUSUTV
+      AVBZVCXLWRXEWSTXKWSTCXEWSVDVFXHIVGFZXKTVHZVIIBCXIXNXOVJVRVEIXHVKVLVMVNVOV
+      PXMVQXBXDLXBXCVSZLJVTWAPQWBWCXCXDMXCXBWDZMNWEWAPQWFWGXCXDNXQMNNRWHWIWJPQW
+      KWMXBXDJXPLJJRWLWIWJPQWNWO $.
+
+    $( Lemma for ~ lgsdir2 .  (Contributed by Mario Carneiro, 4-Feb-2015.) $)
+    lgsdir2lem4 $p |- ( ( ( A e. ZZ /\ B e. ZZ ) /\ ( A mod 8 ) e. { 1 , 7 } )
+    -> ( ( ( A x. B ) mod 8 ) e. { 1 , 7 } <-> ( B mod 8 ) e. { 1 , 7 } ) ) $=
+      ( cz wcel wa c8 cmo co c1 c7 wceq cmul wb cn0 a1i adantr cq oveq1d eleq1d
+      syl vx cpr wo id cn 8nn zmodcld elprg pm5.32i ad2antrr 1nn nnq simplr cc0
+      zq ax-mp clt 8pos simpr cneg c3 c5 lgsdir2lem1 simpli eqtr4di modqmul1 cc
+      wbr zcn ad2antlr mulid2d eqtrd qnegcl simpri mulm1d wi znegcl oveq1 negeq
+      cv imbi12d neg1cn mulcom mpan2 mulm1 neg1z eqtr3d mulid2i oveq1i eqtri ex
+      eqtrdi neg1mulneg1e1 orim12d zmodcl bitrdi 3imtr4d vtoclga negnegd sylibd
+      orcom impbid bitrd jaodan sylbi ) ACDZBCDZEZAFGHZIJUBZDZEXHXIIKZXIJKZUCZE
+      ABLHFGHZXJDZBFGHZXJDZMZXHXKXNXFXKXNMZXGXFXINDXTXFAFXFUDFUEDZXFUFOUGXIIJNU
+      HTPUIXHXLXSXMXHXLEZXOXQXJYBXOIBLHZFGHXQYBAIBFXFAQDZXGXLAUOZUJIQDZYBIUEDYF
+      UKIULUPZOXFXGXLUMFQDZYBYAYHUFFULUPZOUNFUQVHZYBUROYBXIIIFGHZXHXLUSYKIKZIUT
+      ZFGHZJKZYLYOEVAFGHVAKVAUTFGHVBKEVCVDZVDZVEVFYBYCBFGYBBXGBVGDZXFXLBVIZVJVK
+      RVLSXHXMEZXPBUTZFGHZXJDZXRYTXOUUBXJYTXOYMBLHZFGHUUBYTAYMBFXFYDXGXMYEUJYMQ
+      DZYTYFUUEYGIVMUPZOXFXGXMUMYHYTYIOYJYTUROYTXIJYNXHXMUSYLYOYPVNZVEVFYTUUDUU
+      AFGYTBXGYRXFXMYSVJVORVLSXGUUCXRMXFXMXGUUCXRXGUUCUUAUTZFGHZXJDZXRXGUUACDUU
+      CUUJVPZBVQUAVTZFGHZXJDZUULUTZFGHZXJDZVPZUUKUAUUACUULUUAKZUUNUUCUUQUUJUUSU
+      UMUUBXJUULUUAFGVRSUUSUUPUUIXJUUSUUOUUHFGUULUUAVSRSWAUULCDZUUMIKZUUMJKZUCZ
+      UUPJKZUUPIKZUCZUUNUUQUUTUVAUVDUVBUVEUUTUVAUVDUUTUVAEZUUPIYMLHZFGHZJUVGUUL
+      YMLHZFGHZUUPUVIUVGUVJUUOFGUUTUVJUUOKZUVAUUTUULVGDZUVLUULVIUVMUVJYMUULLHZU
+      UOUVMYMVGDUVJUVNKWBUULYMWCWDUULWEVLTZPRUVGUULIYMFUUTUULQDZUVAUULUOZPYFUVG
+      YGOYMCDZUVGWFOYHUVGYIOYJUVGUROUVGUUMIYKUUTUVAUSYQVEVFWGUVIYNJUVHYMFGYMWBW
+      HWIUUGWJWLWKUUTUVBUVEUUTUVBEZUUPYMYMLHZFGHZIUVSUVKUUPUWAUVSUVJUUOFGUUTUVL
+      UVBUVOPRUVSUULYMYMFUUTUVPUVBUVQPUUEUVSUUFOUVRUVSWFOYHUVSYIOYJUVSUROUVSUUM
+      JYNUUTUVBUSUUGVEVFWGUWAYKIUVTIFGWMWIYQWJWLWKWNUUTUUMNDZUUNUVCMUUTYAUWBUFU
+      ULFWOWDUUMIJNUHTUUTUUQUVEUVDUCZUVFUUTUUPNDUUQUWCMUUTUUOFUULVQYAUUTUFOUGUU
+      PIJNUHTUVEUVDXAWPWQZWRTXGUUIXQXJXGUUHBFGXGBYSWSRSWTUURXRUUCVPUABCUULBKZUU
+      NXRUUQUUCUWEUUMXQXJUULBFGVRSUWEUUPUUBXJUWEUUOUUAFGUULBVSRSWAUWDWRXBVJXCXD
+      XE $.
+
+    $( Lemma for ~ lgsdir2 .  (Contributed by Mario Carneiro, 4-Feb-2015.) $)
+    lgsdir2lem5 $p |- ( ( ( A e. ZZ /\ B e. ZZ ) /\
+      ( ( A mod 8 ) e. { 3 , 5 } /\ ( B mod 8 ) e. { 3 , 5 } ) ) ->
+        ( ( A x. B ) mod 8 ) e. { 1 , 7 } ) $=
+      ( cz wcel wa c8 cmo co c3 c5 cmul c1 wceq cn0 a1i 8pos eqtr4di 3cn wtru
+      3z cpr cneg c7 wo wb cn 8nn zmodcl mpan2 adantr syl adantl anbi12d simpll
+      elprg simplr cq nnq ax-mp cc0 clt simprl lgsdir2lem1 simpri simpli simprr
+      wbr modqmul12d orcd ex znegcl mp1i mulneg1i oveq1i olcd mulneg2i mul2negi
+      eqtrdi ccased sylbid imp zmulcld zmodcld mpbird caddc c9 df-9 8cn addcomi
+      ax-1cn eqtri 3t3e9 mulid2i oveq2i 3eqtr4i 1nn modqcyc mp4an nnmulcli nnzi
+      1z 3nn eqidd mptru mulcli mulm1i 3eqtr3i preq12i eleqtrdi ) ACDZBCDZEZAFG
+      HZIJUAZDZBFGHZXNDZEZEZABKHZFGHZIIKHZFGHZYBUBZFGHZUAZLUCUAXSYAYFDZYAYCMZYA
+      YEMZUDZXLXRYJXLXRXMIMZXMJMZUDZXPIMZXPJMZUDZEYJXLXOYMXQYPXLXMNDZXOYMUEXJYQ
+      XKXJFUFDZYQUGAFUHUIUJXMIJNUOUKXLXPNDZXQYPUEXKYSXJXKYRYSUGBFUHUIULXPIJNUOU
+      KUMXLYKYNYLYOYJXLYKYNEZYJXLYTEZYHYIUUAAIBIFXJXKYTUNICDZUUATOZXJXKYTUPUUCF
+      UQDZUUAYRUUDUGFURUSZOUTFVAVGZUUAPOUUAXMIIFGHZXLYKYNVBUUGIMZIUBZFGHZJMZLFG
+      HZLMZLUBZFGHZUCMZEZUUHUUKEZVCVDZVEZQUUAXPIUUGXLYKYNVFUUTQVHVIVJXLYLYNEZYJ
+      XLUVAEZYIYHUVBYAUUIIKHZFGHYEUVBAUUIBIFXJXKUVAUNUUBUUICDZUVBTIVKZVLXJXKUVA
+      UPUUBUVBTOUUDUVBUUEOUUFUVBPOUVBXMJUUJXLYLYNVBUUHUUKUUSVDZQUVBXPIUUGXLYLYN
+      VFUUTQVHUVCYDFGIIRRVMVNVRVOVJXLYKYOEZYJXLUVGEZYIYHUVHYAIUUIKHZFGHYEUVHAIB
+      UUIFXJXKUVGUNUUBUVHTOXJXKUVGUPUUBUVDUVHTUVEVLUUDUVHUUEOUUFUVHPOUVHXMIUUGX
+      LYKYOVBUUTQUVHXPJUUJXLYKYOVFUVFQVHUVIYDFGIIRRVPVNVRVOVJXLYLYOEZYJXLUVJEZY
+      HYIUVKYAUUIUUIKHZFGHYCUVKAUUIBUUIFXJXKUVJUNUUBUVDUVKTUVEVLZXJXKUVJUPUVMUU
+      DUVKUUEOUUFUVKPOUVKXMJUUJXLYLYOVBUVFQUVKXPJUUJXLYLYOVFUVFQVHUVLYBFGIIRRVQ
+      VNVRVIVJVSVTWAXSYANDYGYJUEXSXTFXSABXJXKXRUNXJXKXRUPWBYRXSUGOWCYAYCYENUOUK
+      WDYCLYEUCYCUULLYCLLFKHZWEHZFGHZUULYBUVOFGWFLFWEHZYBUVOWFFLWEHUVQWGFLWHWJW
+      IWKWLUVNFLWEFWHWMWNWOVNLUQDZLCDZUUDUUFUVPUULMLUFDUVRWPLURUSXAUUEPLFLWQWRW
+      KZUUMUUPUUQUURVCVEZVEWKYEUUOUCUUNYBKHZFGHZUUNLKHZFGHZYEUUOUWCUWEMSUUNUUNY
+      BLFUVSUUNCDSXALVKVLZUWFYBCDSYBIIXBXBWSWTOUVSSXAOUUDSUUEOUUFSPOSUUOXCYCUUL
+      MSUVTOVHXDUWBYDFGYBIIRRXEXFVNUWDUUNFGLWJXFVNXGUUMUUPUWAVDWKXHXI $.
+
+    $( The Legendre symbol is completely multiplicative at ` 2 ` .
+       (Contributed by Mario Carneiro, 4-Feb-2015.) $)
+    lgsdir2 $p |- ( ( A e. ZZ /\ B e. ZZ ) ->
+      ( ( A x. B ) /L 2 ) = ( ( A /L 2 ) x. ( B /L 2 ) ) ) $=
+      ( cz wcel wa c2 cc0 c8 co c1 c7 cif cmul wo wceq wn cc wdc syl2anc syl cn
+      cdvds wbr cmo cpr cneg clgs 0cnd 1cnd neg1cn a1i simpr zmodcld nn0zd 1zzd
+      8nn zdceq 7nn nnzi dcor sylc cn0 wb elprg dcbid mpbird ifcldcd adantr 2nn
+      simplr dvdsdc mul02d iftrue adantl oveq1d wi 2z dvdsmultr1 mp3an1 iftrued
+      3eqtr4d simpl mul01d oveq2d dvdsmultr2 ioran ad2antrr mulid2d lgsdir2lem4
+      imp jaodan adantlr mulid1d zcn mulcom syl2an eleq1d ancom1s neg1mulneg1e1
+      ifbid bitrd iffalse oveqan12d c3 c5 cun lgsdir2lem3 ad2ant2r elun orcanai
+      sylib ad2ant2l lgsdir2lem5 syldan 3eqtr4a sylan2b exmiddc mpjaodan cprime
+      anim12dan 2prm euclemma notbid biimpar sylan2br lgs2 zmulcl 3eqtr4rd ) AC
+      DZBCDZEZFAUBUCZGAHUDIZJKUEZDZJJUFZLZLZFBUBUCZGBHUDIZYNDZJYPLZLZMIZFABMIZU
+      BUCZGUUEHUDIZYNDZJYPLZLZAFUGIZBFUGIZMIUUEFUGIZYKYLYSNZUUDUUJOZUUNPZYKYLUU
+      OYSYKYLEZGUUCMIGUUDUUJUUQUUCUUQYSGUUBQUUQUHYKUUBQDZYLYKUUAJYPQYKUIZYPQDYK
+      UJUKZYKUUARZYTJOZYTKOZNZRZYKUVBRZUVCRZUVEYKYTCDZJCDZUVFYKYTYKBHYIYJULZHUA
+      DYKUPUKZUMZUNZYKUOZYTJUQSYKUVHKCDZUVGUVMUVOYKKURUSUKZYTKUQSUVBUVCUTVAYKUU
+      AUVDYKYTVBDUUAUVDVCUVLYTJKVBVDTVEVFZVGZVHUUQFUADZYJYSRZUVSUUQVIUKYIYJYLVJ
+      FBVKZSVGVLUUQYRGUUCMYLYRGOYKYLGYQVMVNVOUUQUUFGUUIYKYLUUFFCDZYIYJYLUUFVPVQ
+      FABVRVSWJVTWAYKYSEZYRGMIZGUUDUUJYKUWDGOYSYKYRYKYLGYQQYKUHYKYOJYPQUUSUUTYK
+      YORZYMJOZYMKOZNZRZYKUWFRZUWGRZUWIYKYMCDZUVIUWJYKYMYKAHYIYJWBZUVKUMZUNZUVN
+      YMJUQSYKUWLUVOUWKUWOUVPYMKUQSUWFUWGUTVAYKYOUWHYKYMVBDYOUWHVCUWNYMJKVBVDTV
+      EVFZVGZYKUVSYIYLRZUVSYKVIUKZUWMFAVKSZVGWCVHUWCUUCGYRMYSUUCGOYKYSGUUBVMVNW
+      DUWCUUFGUUIYKYSUUFUWBYIYJYSUUFVPVQFABWEVSWJVTWAWKUUPYKYLPZYSPZEZUUOYLYSWF
+      ZYKUXCEZYQUUBMIZUUIUUDUUJUXEYOUUANZUXFUUIOZUXGPZUXEYOUXHUUAUXEYOEZJUUBMIU
+      UBUXFUUIUXJUUBYKUURUXCYOUVRWGWHUXJYQJUUBMYOYQJOUXEYOJYPVMVNVOUXJUUHUUAJYP
+      YKYOUUHUUAVCUXCABWIWLWTWAUXEUUAEZYQJMIZYQUXFUUIYKUXLYQOUXCUUAYKYQUWQWMWGU
+      XKUUBJYQMUUAUUBJOUXEUUAJYPVMVNWDUXKUUHYOJYPUXKUUHBAMIZHUDIZYNDZYOUXKUUGUX
+      NYNUXKUUEUXMHUDYKUUEUXMOZUXCUUAYIAQDBQDUXPYJAWNBWNABWOWPWGVOWQYKUUAUXOYOV
+      CZUXCYJYIUUAUXQBAWIWRWLXAWTWAWKUXIUXEYOPZUUAPZEZUXHYOUUAWFUXEUXTEZYPYPMIZ
+      JUXFUUIWSUXTUXFUYBOUXEUXRUXSYQYPUUBYPMYOJYPXBUUAJYPXBXCVNUYAUUHJYPUXEUXTY
+      MXDXEUEZDZYTUYCDZEZUUHUXEUXRUYDUXSUYEUXEYOUYDUXEYMYNUYCXFZDZYOUYDNYIUXAUY
+      HYJUXBAXGXHYMYNUYCXIXKXJUXEUUAUYEUXEYTUYGDZUUAUYENYJUXBUYIYIUXABXGXLYTYNU
+      YCXIXKXJXTYKUYFUUHUXCABXMWLXNVTXOXPUXEUXGRZUXGUXINYKUYJUXCYKUWEUVAUYJUWPU
+      VQYOUUAUTVAVHUXGXQTXRUXCUUDUXFOYKUXAUXBYRYQUUCUUBMYLGYQXBYSGUUBXBXCVNUXEU
+      UFPZUUJUUIOUXCYKUUPUYKUXDYKUYKUUPYKUUFUUNFXSDYIYJUUFUUNVCYAFABYBVSYCYDYEU
+      UFGUUIXBTWAXPYKUUNRZUUNUUPNYKUWRUVTUYLUWTYKUVSYJUVTUWSUVJUWASYLYSUTVAUUNX
+      QTXRYIYJUUKYRUULUUCMAYFBYFXCYKUUECDUUMUUJOABYGUUEYFTYH $.
+
+    $( The Legendre symbol is completely multiplicative at the primes.  See
+       theorem 9.3 in [ApostolNT] p. 180.  (Contributed by Mario Carneiro,
+       4-Feb-2015.)  (Proof shortened by AV, 18-Mar-2022.) $)
+    lgsdirprm $p |- ( ( A e. ZZ /\ B e. ZZ /\ P e. Prime ) ->
+      ( ( A x. B ) /L P ) = ( ( A /L P ) x. ( B /L P ) ) ) $=
+      ( vx cz wcel c2 wceq cmul co clgs syl2anc syl zcnd cabs cmo cq cle wbr c1
+      cprime w3a wne simpl1 simpl2 lgsdir2 simpr oveq2d oveq12d 3eqtr4d zmulcld
+      wa simpl3 prmz lgscl cmin subcld cfv cc0 clt zsubcld zabscl zq 3syl prmnn
+      cn nnq absge0d abscld cr 2re a1i nnred caddc readdcld abs2dif2d lgsle1 cv
+      1red crab eqid lgscl2 lgslem3 fveq2 breq1d simprbi le2addd df-2 breqtrrdi
+      elrab letrd prmuz2 eluzle wb 2z zltlen sylancr mpbir2and lelttrd syl22anc
+      cuz modqid cdvds cdiv cexp csn eldifsn sylanbrc oddprm nnnn0d mulexpd cn0
+      cdif zexpcl mulcomd eqtrd oveq1d lgsvalmod nngt0d modqmul1 3eqtrd moddvds
+      syl3anc mpbid dvdsabsb dvdsmod0 eqtr3d abs00d subeq0d 3ad2ant3 zdceq dcne
+      wdc wo sylib mpjaodan ) AEFZBEFZCUAFZUBZCGHZABIJZCKJZACKJZBCKJZIJZHCGUCZY
+      TUUAULZUUBGKJZAGKJZBGKJZIJZUUCUUFUUHYQYRUUIUULHYQYRYSUUAUDYQYRYSUUAUEABUF
+      LUUHCGUUBKYTUUAUGZUHUUHUUDUUJUUEUUKIUUHCGAKUUMUHUUHCGBKUUMUHUIUJYTUUGULZU
+      UCUUFUUNUUCUUNUUBEFZCEFZUUCEFZUUNABYQYRYSUUGUDZYQYRYSUUGUEZUKZUUNYSUUPYQY
+      RYSUUGUMZCUNZMZUUBCUOLZNZUUNUUFUUNUUDUUEUUNYQUUPUUDEFZUURUVCACUOLZUUNYRUU
+      PUUEEFZUUSUVCBCUOLZUKZNZUUNUUCUUFUPJZUUNUUCUUFUVEUVKUQZUUNUVLOURZCPJZUVNU
+      SUUNUVNQFZCQFZUSUVNRSUVNCUTSUVOUVNHUUNUVLEFZUVNEFUVPUUNUUCUUFUVDUVJVAZUVL
+      VBUVNVCVDUUNYSCVFFZUVQUVACVEZCVGVDZUUNUVLUVMVHUUNUVNGCUUNUVLUVMVIZGVJFUUN
+      VKVLZUUNCUUNYSUVTUVAUWAMZVMUUNUVNUUCOURZUUFOURZVNJZGUWCUUNUWFUWGUUNUUCUVE
+      VIZUUNUUFUVKVIZVOUWDUUNUUCUUFUVEUVKVPUUNUWHTTVNJGRUUNUWFUWGTTUWIUWJUUNVSZ
+      UWKUUNUUOUUPUWFTRSUUTUVCUUBCVQLUUNUUFDVRZOURZTRSZDEVTZFZUWGTRSZUUNUUDUWOF
+      ZUUEUWOFZUWPUUNYQUUPUWRUURUVCDACUWOUWOWAZWBLUUNYRUUPUWSUUSUVCDBCUWOUWTWBL
+      DUUDUUEUWOUWTWCLUWPUUFEFZUWQUWNUWQDUUFEUWLUUFHUWMUWGTRUWLUUFOWDWEWJWFMWGW
+      HWIWKUUNGCUTSZGCRSZUUGUUNYSCGXAURFUXCUVACWLGCWMVDYTUUGUGZUUNGEFZUUPUXBUXC
+      UUGULWNWOUVCGCWPWQWRWSUVNCXBWTUUNUVTCUVNXCSZUVOUSHUWEUUNCUVLXCSZUXFUUNUUC
+      CPJZUUFCPJZHZUXGUUNUUBCTUPJGXDJZXEJZCPJZBUXKXEJZAUXKXEJZIJZCPJZUXHUXIUUNU
+      XLUXPCPUUNUXLUXOUXNIJUXPUUNABUXKUUNAUURNUUNBUUSNUUNUXKUUNCUAGXFXMFZUXKVFF
+      UUNYSUUGUXRUVAUXDCUAGXGXHZCXIMXJZXKUUNUXOUXNUUNUXOUUNYQUXKXLFZUXOEFZUURUX
+      TAUXKXNLZNZUUNUXNUUNYRUYAUXNEFZUUSUXTBUXKXNLZNXOXPXQUUNUUOUXRUXHUXMHUUTUX
+      SUUBCXRLUUNUXIUXOUUEIJZCPJUUEUXOIJZCPJUXQUUNUUDUXOUUECUUNUVFUUDQFUVGUUDVC
+      MUUNUYBUXOQFUYCUXOVCMUVIUWBUUNCUWEXSZUUNYQUXRUUDCPJUXOCPJHUURUXSACXRLXTUU
+      NUYGUYHCPUUNUXOUUEUYDUUNUUEUVINXOXQUUNUUEUXNUXOCUUNUVHUUEQFUVIUUEVCMUUNUY
+      EUXNQFUYFUXNVCMUYCUWBUYIUUNYRUXRUUECPJUXNCPJHUUSUXSBCXRLXTYAUJUUNUVTUUQUX
+      AUXJUXGWNUWEUVDUVJUUCUUFCYBYCYDUUNUUPUVRUXGUXFWNUVCUVSCUVLYELYDCUVNYFLYGY
+      HYIYTUUAYMZUUAUUGYNYTUUPUXEUYJYSYQUUPYRUVBYJUXEYTWOVLCGYKLCGYLYOYP $.
+
+    ${
+      $d A v $.  $d B v $.  $d N v $.  $d n v $.  $d k v $.
+      $( The Legendre symbol is completely multiplicative in its left argument.
+         Generalization of theorem 9.9(a) in [ApostolNT] p. 188 (which assumes
+         that ` A ` and ` B ` are odd positive integers).  (Contributed by
+         Mario Carneiro, 4-Feb-2015.) $)
+      lgsdir $p |- ( ( ( A e. ZZ /\ B e. ZZ /\ N e. ZZ ) /\
+                       ( A =/= 0 /\ B =/= 0 ) ) ->
+        ( ( A x. B ) /L N ) = ( ( A /L N ) x. ( B /L N ) ) ) $=
+        ( vn cz wcel cc0 wa wceq cmul co clgs cexp c1 cif wdc zcnd wbr oveq12d
+        cn vk vv w3a c2 wn cc 1cnd 0cnd zsqcl 3ad2ant2 1z zdceq sylancl ifcldcd
+        wne mulid2d ad3antrrr iftrue adantl oveq1d simpl1 ad2antrr simpl2 simpr
+        sqmuld sqcld 3eqtrd eqeq1d ifbid 3eqtr4d iffalse cdvds dvdsmul1 syl2anc
+        mul02d wb zmulcld dvdssq mpbid adantr breq2 syl5ibcom cle simprl neneqd
+        wi sqeq0 syl mtbird cn0 wo zsqcl2 elnn0 sylib ecased nnzd dvdsle nnge1d
+        1nn jctird cr nnred 1re letri3 exmiddc mpjaodan oveq2 sylan9eqr clt cfv
+        lgs0 cv cprime cpc cmpt cseq nnuz wf eqid lgsfcl3 syl3anc ffvelrn lgscl
+        syl2an eqtrd adantlr ifbieq1d zexpcl ifcldadc fvmptd3 lgsval4 a1i zdclt
+        1zzd 0z dcan2 sylc ffvelrnda seqf ffvelrnd sylibrd syld con3dimp simpl3
+        iffalsed 3eqtr4rd cneg cabs lgsdilem cuz nnabscl sylan eleqtrdi simpll1
+        simpll3 elnnuz biimpri simpll2 prmz pczcl syl12anc mulexpd 1t1e1 eqcomi
+        lgsdirprm 3eqtr4a prmdc eleq1w oveq1 prod3fmul neg1cn zmulcl neg1z dcne
+        mul4d ) AEFZBEFZCEFZUCZAGUOZBGUOZHZHZCGIZABJKZCLKZACLKZBCLKZJKZICGUOZUW
+        CUWDHZAUDMKZNIZNGOZBUDMKZNIZNGOZJKZUWEUDMKZNIZNGOZUWIUWFUWKUWMUWRUXAIUW
+        MUEZUWKUWMHZNUWQJKZUWQUWRUXAUVSUXDUWQIUWBUWDUWMUVSUWQUVSUWPNGUFUVSUGUVS
+        UHUVSUWOEFZNEFZUWPPUVQUVPUXEUVRBUIUJUKUWONULUMUNZUPUQUXCUWNNUWQJUWMUWNN
+        IUWKUWMNGURUSUTUXCUWTUWPNGUXCUWSUWONUXCUWSUWLUWOJKNUWOJKUWOUXCABUWCAUFF
+        ZUWDUWMUWCAUVPUVQUVRUWBVAZQZVBUWCBUFFUWDUWMUWCBUVPUVQUVRUWBVCZQZVBVEUXC
+        UWLNUWOJUWKUWMVDUTUXCUWOUWCUWOUFFUWDUWMUWCBUXLVFVBUPVGVHVIVJUWKUXBHZGUW
+        QJKZGUWRUXAUVSUXNGIUWBUWDUXBUVSUWQUXGVOUQUXMUWNGUWQJUXBUWNGIUWKUWMNGVKU
+        SUTUXMUWTNGUWKUWTUWMUWKUWTUWLNVLRZUWMUWKUWLUWSVLRZUWTUXOUWCUXPUWDUWCAUW
+        EVLRZUXPUWCUVPUVQUXQUXIUXKABVMVNUWCUVPUWEEFZUXQUXPVPUXIUWCABUXIUXKVQZAU
+        WEVRVNVSVTUWSNUWLVLWAWBUWKUXOUWLNWCRZNUWLWCRZHZUWMUWKUXOUXTUYAUWKUWLEFZ
+        NTFUXOUXTWFUWKUWLUWCUWLTFZUWDUWCUYDUWLGIZUWCUYEAGIZUWCAGUVSUVTUWAWDWEUW
+        CUXHUYEUYFVPUXJAWGWHWIUWCUWLWJFZUYDUYEWKUWCUVPUYGUXIAWLWHUWLWMWNWOVTZWP
+        ZWSUWLNWQUMUWKUWLUYHWRWTUWKUWLXAFNXAFUWMUYBVPUWKUWLUYHXBXCUWLNXDUMUUAUU
+        BUUCUUEVJUWKUWMPZUWMUXBWKUWKUYCUXFUYJUYIUKUWLNULUMUWMXEWHXFUWKUWGUWNUWH
+        UWQJUWDUWCUWGAGLKZUWNCGALXGUWCUVPUYKUWNIUXIAXKWHXHUWDUWCUWHBGLKZUWQCGBL
+        XGUWCUVQUYLUWQIUXKBXKWHXHSUWDUWCUWFUWEGLKZUXACGUWELXGUWCUXRUYMUXAIUXSUW
+        EXKWHXHUUFUWCUWJHZCGXIRZUWEGXIRHNUUGZNOZCUUHXJZJDTDXLZXMFZUWEUYSLKZUYSC
+        XNKZMKZNOZXOZNXPXJZJKZUYOAGXIRZHZUYPNOZUYOBGXIRZHZUYPNOZJKZUYRJDTUYTAUY
+        SLKZVUBMKZNOZXOZNXPZXJZUYRJDTUYTBUYSLKZVUBMKZNOZXOZNXPZXJZJKZJKZUWFUWIU
+        YNUYQVUNVUFVVGJUWCUYQVUNIUWJABCUUIVTUYNUAVURVVDVUENUYRUYNUYRTNUUJXJZUWC
+        UVRUWJUYRTFUVPUVQUVRUWBUUDZCUUKUULZXQUUMUYNUAXLZVVIFZHZVVLVURXJZUYNTEVU
+        RXRZVVLTFZVVOEFVVMUYNUVPUVRUWJVVPUVPUVQUVRUWBUWJUUNZUVPUVQUVRUWBUWJUUOZ
+        UWCUWJVDZADVURCVURXSZXTYAZVVQVVMVVLUUPUUQZTEVVLVURYBYDQVVNVVLVVDXJZUYNT
+        EVVDXRZVVQVWDEFVVMUYNUVQUVRUWJVWEUVPUVQUVRUWBUWJUURZVVSVVTBDVVDCVVDXSZX
+        TYAZVWCTEVVLVVDYBYDQVVNVVLXMFZUWEVVLLKZVVLCXNKZMKZNOZVWIAVVLLKZVWKMKZNO
+        ZVWIBVVLLKZVWKMKZNOZJKZVVLVUEXJVVOVWDJKVVNVWIVWMVWTIZVWIUEZUYNVWIVXAVVM
+        UYNVWIHZVWLVWOVWRJKZVWMVWTVXCVWLVWNVWQJKZVWKMKVXDVXCVWJVXEVWKMVXCUVPUVQ
+        VWIVWJVXEIUYNUVPVWIVVRVTUYNUVQVWIVWFVTUYNVWIVDZABVVLUVEYAUTVXCVWNVWQVWK
+        VXCVWNUYNUVPVVLEFZVWNEFZVWIVVRVVLUUSZAVVLYCYDZQVXCVWQUYNUVQVXGVWQEFZVWI
+        VWFVXIBVVLYCYDZQVXCVWIUVRUWJVWKWJFZVXFUYNUVRVWIVVSVTUYNUWJVWIVVTVTVVLCU
+        UTUVAZUVBYEVWIVWMVWLIUYNVWIVWLNURUSVWIVWTVXDIUYNVWIVWPVWOVWSVWRJVWIVWON
+        URVWIVWRNURSUSVJYFVXBVXAVVNVXBNNNJKZVWMVWTVXONUVCUVDVWIVWLNVKVXBVWPNVWS
+        NJVWIVWONVKVWIVWRNVKSUVFUSVVNVWIPZVWIVXBWKVVNVVQVXPVVMVVQUYNVWCUSZVVLUV
+        GWHZVWIXEWHXFVVNDVVLVUDVWMTVUEEVUEXSZUYSVVLIZUYTVWIVUCVWLNDUAXMUVHZVXTV
+        UAVWJVUBVWKMUYSVVLUWELXGUYSVVLCXNUVIZSYGVXQVVNVWIVWLNEVVNVWIHZVWJEFZVXM
+        VWLEFVYCUXRVXGVYDUWCUXRUWJVVMVWIUXSUQVWIVXGVVNVXIUSUWEVVLYCVNUYNVWIVXMV
+        VMVXNYFZVWJVWKYHVNVVNVXBHYNZVXRYIYJVVNVVOVWPVWDVWSJVVNDVVLVUQVWPTVUREVW
+        AVXTUYTVWIVUPVWONVYAVXTVUOVWNVUBVWKMUYSVVLALXGVYBSYGVXQVVNVWIVWONEVYCVX
+        HVXMVWOEFUYNVWIVXHVVMVXJYFVYEVWNVWKYHVNVYFVXRYIYJVVNDVVLVVCVWSTVVDEVWGV
+        XTUYTVWIVVBVWRNVYAVXTVVAVWQVUBVWKMUYSVVLBLXGVYBSYGVXQVVNVWIVWRNEVYCVXKV
+        XMVWREFUYNVWIVXKVVMVXLYFVYEVWQVWKYHVNVYFVXRYIYJSVJUVJSUYNUXRUVRUWJUWFVU
+        GIUWCUXRUWJUXSVTVVSVVTUWEDVUECVXSYKYAUYNUWIVUJVUTJKZVUMVVFJKZJKVVHUYNUW
+        GVYGUWHVYHJUYNUVPUVRUWJUWGVYGIVVRVVSVVTADVURCVWAYKYAUYNUVQUVRUWJUWHVYHI
+        VWFVVSVVTBDVVDCVWGYKYASUYNVUJVUTVUMVVFUYNVUIUYPNUFUYPUFFUYNUVKYLUYNUGUY
+        NUYOPZVUHPZVUIPUYNUVRGEFZVYIVVSYOCGYMUMZUYNUVPVYKVYJVVRYOAGYMUMUYOVUHYP
+        YQUNUYNVUTUYNTEUYRVUSUYNUAUBJEVURNTXQUYNYNZUYNTEVVLVURVWBYRVXGUBXLZEFHV
+        VLVYNJKEFUYNVVLVYNUVLUSZYSVVKYTQUYNVUMUYNVULUYPNEUYPEFUYNUVMYLVYMUYNVYI
+        VUKPZVULPVYLUYNUVQVYKVYPVWFYOBGYMUMUYOVUKYPYQUNQUYNVVFUYNTEUYRVVEUYNUAU
+        BJEVVDNTXQVYMUYNTEVVLVVDVWHYRVYOYSVVKYTQUVOYEVJUWCUWDPZUWDUWJWKUWCUVRVY
+        KVYQVVJYOCGULUMCGUVNWNXF $.
+    $}
+
+    ${
+      $d F v $.  $d M v $.  $d N v $.  $d ph v $.  $d k v $.
+      lgsdilem2.1 $e |- ( ph -> A e. ZZ ) $.
+      lgsdilem2.2 $e |- ( ph -> M e. ZZ ) $.
+      lgsdilem2.3 $e |- ( ph -> N e. ZZ ) $.
+      lgsdilem2.4 $e |- ( ph -> M =/= 0 ) $.
+      lgsdilem2.5 $e |- ( ph -> N =/= 0 ) $.
+      lgsdilem2.6 $e |- F = ( n e. NN |-> if ( n e. Prime ,
+        ( ( A /L n ) ^ ( n pCnt M ) ) , 1 ) ) $.
+      $( Lemma for ~ lgsdi .  (Contributed by Mario Carneiro, 4-Feb-2015.) $)
+      lgsdilem2 $p |- ( ph -> ( seq 1 ( x. , F ) ` ( abs ` M ) ) =
+        ( seq 1 ( x. , F ) ` ( abs ` ( M x. N ) ) ) ) $=
+        ( cfv c1 co wcel cn cz cc0 syl2anc vk vv cmul cc cabs mulid1 adantl cuz
+        cv wceq wne nnabscl nnuz eleqtrdi cle wbr nnzd zmulcld zcnd wb 0z zapne
+        cap sylancl mpbird mulap0d mpbid abscld absge0d nnge1d absmuld breqtrrd
+        lemulge11d syl3anbrc cseq 1zzd wf lgsfcl3 syl3anc ffvelrnda zmulcl seqf
+        eluz2 wa ffvelrnd caddc cfz cprime clgs cpc cexp cif eleq1w oveq2 oveq1
+        oveq12d ifbieq1d peano2nnd elfzuz eluznn syl2an cn0 ad2antrr prmz lgscl
+        simpr pczcl syl12anc zexpcl wn wdc prmdc syl ifcldadc cq zq pcabs cdvds
+        fvmptd3 clt elfzle1 elfzelz zltp1le zltnle adantr wi dvdsle mtod eqtr3d
+        pceq0 oveq2d exp0d eqtrd ifeq1dadc ifiddc elnnuz biimpri mulcl seq3id2
+        ) AUAUBUCUDDEUEMZNEFUCOZUEMZNUAUIZUDPZUUCNUCOUUCUJAUUCUFUGAYTQNUHMZAERP
+        ZESUKZYTQPZHJEULZTZUMUNAYTRPZUUBRPYTUUBUOUPUUBYTUHMPAYTUUJUQZAUUBAUUARP
+        ZUUASUKZUUBQPAEFHIURZAUUASVCUPZUUNAEFAEHUSZAFIUSZAESVCUPZUUGJAUUFSRPZUU
+        SUUGUTHVAESVBVDVEAFSVCUPZFSUKZKAFRPZUUTUVAUVBUTIVAFSVBVDVEVFAUUMUUTUUPU
+        UNUTUUOVAUUASVBVDVGUUAULTUQAYTYTFUEMZUCOUUBUOAYTUVDAEUUQVHAFUURVHAEUUQV
+        IAUVDAUVCUVBUVDQPIKFULTVJVMAEFUUQUURVKVLYTUUBWCVNAYTUCDNVOZMAQRYTUVEAUA
+        UBUCRDNQUMAVPAQRUUCDABRPZUUFUUGQRDVQZGHJBCDELVRVSZVTUUCRPZUBUIZRPWDUUCU
+        VJUCOZRPAUUCUVJWAUGWBUUJWEUSAUUCYTNWFOZUUBWGOPZWDZUUCDMZUUCWHPZBUUCWIOZ
+        UUCEWJOZWKOZNWLZNUVNCUUCCUIZWHPZBUWAWIOZUWAEWJOZWKOZNWLUVTQDRLUWAUUCUJZ
+        UWBUVPUWEUVSNCUAWHWMUWFUWCUVQUWDUVRWKUWAUUCBWIWNUWAUUCEWJWOWPWQAUVLQPUU
+        CUVLUHMPUUCQPZUVMAYTUUJWRUUCUVLUUBWSUUCUVLWTXAZUVNUVPUVSNRUVNUVPWDZUVQR
+        PZUVRXBPZUVSRPUWIUVFUVIUWJAUVFUVMUVPGXCUVPUVIUVNUUCXDUGZBUUCXETZUWIUVPU
+        UFUUGUWKUVNUVPXFZAUUFUVMUVPHXCZAUUGUVMUVPJXCZUUCEXGXHUVQUVRXITUVNUVPXJW
+        DVPUVNUWGUVPXKZUWHUUCXLXMZXNXSUVNUVTUVPNNWLZNUVNUVPUVSNNUWIUVSUVQSWKONU
+        WIUVRSUVQWKUWIUUCYTWJOZUVRSUWIUVPEXOPZUWTUVRUJUWNUWIUUFUXAUWOEXPXMEUUCX
+        QTUWIUWTSUJZUUCYTXRUPZXJZUWIUXCUUCYTUOUPZUVNUXEXJZUVPUVNYTUUCXTUPZUXFUV
+        NUXGUVLUUCUOUPZUVMUXHAUUCUVLUUBYAUGAUUKUVIUXGUXHUTUVMUULUUCUVLUUBYBZYTU
+        UCYCXAVEAUUKUVIUXGUXFUTUVMUULUXIYTUUCYDXAVGYEUWIUVIUUHUXCUXEYFUWLUWIUUF
+        UUGUUHUWOUWPUUITZUUCYTYGTYHUWIUVPUUHUXBUXDUTUWNUXJUUCYTYJTVEYIYKUWIUVQU
+        WIUVQUWMUSYLYMUWRYNUVNUWQUWSNUJUWRUVPNYOXMYMYMAUUCUUEPZWDZUVOUXLQRUUCDA
+        UVGUXKUVHYEUXKUWGAUWGUXKUUCYPYQUGWEUSUUDUVJUDPWDUVKUDPAUUCUVJYRUGYS $.
+    $}
+
+    ${
+      $d M v $.  $d N v $.  $d A k n v $.
+      $( The Legendre symbol is completely multiplicative in its right
+         argument.  Generalization of theorem 9.9(b) in [ApostolNT] p. 188
+         (which assumes that ` M ` and ` N ` are odd positive integers).
+         (Contributed by Mario Carneiro, 5-Feb-2015.) $)
+      lgsdi $p |- ( ( ( A e. ZZ /\ M e. ZZ /\ N e. ZZ ) /\
+                      ( M =/= 0 /\ N =/= 0 ) ) ->
+        ( A /L ( M x. N ) ) = ( ( A /L M ) x. ( A /L N ) ) ) $=
+        ( vn cz wcel cc0 wa cmul co wbr c1 cif cfv cpc cexp wceq zcnd oveq12d
+        cn vk vv w3a wne clt cneg cabs cv cprime clgs cmpt cseq 3anrot lgsdilem
+        sylanb wb ancom ifbi ax-mp oveq12i 3eqtr4g simpl2 simpl3 zmulcld simprl
+        cuz cap 0z zapne sylancl mpbird simprr mulap0d nnabscl syl2anc eleqtrdi
+        mpbid nnuz wf simpl1 eqid lgsfcl3 syl3anc elnnuz biimpri ffvelrn syl2an
+        caddc simpr ad2antrr pcmul syl122anc oveq2d prmz adantl lgscl cn0 pczcl
+        wn syl12anc expaddd eqtrd iftrue 3eqtr4rd 1t1e1 iffalse 3eqtr4a exmiddc
+        wdc prmdc syl mpjaodan eleq1w oveq2 oveq1 ifbieq1d zexpcl 1zzd ifcldadc
+        wo fvmptd3 prod3fmul lgsdilem2 mulcomd fveq2d lgsval4 neg1z zdclt dcan2
+        eqtr4d a1i sylc ifcldcd ffvelrnda zmulcl seqf ffvelrnd mul4d 3eqtr4d )
+        AEFZBEFZCEFZUCZBGUDZCGUDZHZHZBCIJZGUEKZAGUEKZHZLUFZLMZUUHUGNZIDTDUHZUIF
+        ZAUUOUJJZUUOUUHOJZPJZLMZUKZLULNZIJZBGUEKZUUJHZUULLMZCGUEKZUUJHZUULLMZIJ
+        ZBUGNZIDTUUPUUQUUOBOJZPJZLMZUKZLULZNZCUGNZIDTUUPUUQUUOCOJZPJZLMZUKZLULZ
+        NZIJZIJZAUUHUJJZABUJJZACUJJZIJZUUGUUMUVJUVBUWEIUUGUUJUUIHZUULLMZUUJUVDH
+        ZUULLMZUUJUVGHZUULLMZIJZUUMUVJUUCUUAUUBYTUCUUFUWLUWQQYTUUAUUBUMBCAUNUOU
+        UKUWKUPUUMUWLQUUIUUJUQUUKUWKUULLURUSUVFUWNUVIUWPIUVEUWMUPUVFUWNQUVDUUJU
+        QUVEUWMUULLURUSUVHUWOUPUVIUWPQUVGUUJUQUVHUWOUULLURUSUTVAUUGUVBUUNUVPNZU
+        UNUWCNZIJUWEUUGUAUVOUWBUVALUUNUUGUUNTLVFNZUUGUUHEFZUUHGUDZUUNTFUUGBCYTU
+        UAUUBUUFVBZYTUUAUUBUUFVCZVDZUUGUUHGVGKZUXBUUGBCUUGBUXCRZUUGCUXDRZUUGBGV
+        GKZUUDUUCUUDUUEVEZUUGUUAGEFZUXIUUDUPUXCVHBGVIVJVKUUGCGVGKZUUEUUCUUDUUEV
+        LZUUGUUBUXKUXLUUEUPUXDVHCGVIVJVKVMUUGUXAUXKUXFUXBUPUXEVHUUHGVIVJVQZUUHV
+        NVOVRVPUUGUAUHZUWTFZHZUXOUVONZUUGTEUVOVSZUXOTFZUXREFUXPUUGYTUUAUUDUXSYT
+        UUAUUBUUFVTZUXCUXJADUVOBUVOWAZWBWCZUXTUXPUXOWDWEZTEUXOUVOWFWGRUXQUXOUWB
+        NZUUGTEUWBVSZUXTUYEEFUXPUUGYTUUBUUEUYFUYAUXDUXMADUWBCUWBWAZWBWCZUYDTEUX
+        OUWBWFWGRUXQUXOUIFZAUXOUJJZUXOBOJZPJZLMZUYIUYJUXOCOJZPJZLMZIJZUYIUYJUXO
+        UUHOJZPJZLMZUXRUYEIJUXOUVANUXQUYIUYQUYTQZUYIWSZUXQUYIHZUYSUYLUYOIJZUYTU
+        YQVUCUYSUYJUYKUYNWHJZPJVUDVUCUYRVUEUYJPVUCUYIUUAUUDUUBUUEUYRVUEQUXQUYIW
+        IZUUGUUAUXPUYIUXCWJZUUGUUDUXPUYIUXJWJZUUGUUBUXPUYIUXDWJZUUGUUEUXPUYIUXM
+        WJZBCUXOWKWLWMVUCUYJUYKUYNVUCUYJVUCYTUXOEFZUYJEFZUUGYTUXPUYIUYAWJUYIVUK
+        UXQUXOWNWOAUXOWPVOZRVUCUYIUUBUUEUYNWQFZVUFVUIVUJUXOCWRWTZVUCUYIUUAUUDUY
+        KWQFZVUFVUGVUHUXOBWRWTZXAXBUYIUYTUYSQUXQUYIUYSLXCWOUYIUYQVUDQUXQUYIUYMU
+        YLUYPUYOIUYIUYLLXCUYIUYOLXCSWOXDVUBVUAUXQVUBLLIJLUYQUYTXEVUBUYMLUYPLIUY
+        IUYLLXFUYIUYOLXFSUYIUYSLXFXGWOUXPUYIVUBXTZUUGUXPUXTVURUYDUXTUYIXIZVURUX
+        OXJZUYIXHXKXKWOXLUXQUXRUYMUYEUYPIUXQDUXOUVNUYMTUVOEUYBUUOUXOQZUUPUYIUVM
+        UYLLDUAUIXMZVVAUUQUYJUVLUYKPUUOUXOAUJXNZUUOUXOBOXOSXPUXPUXTUUGUYDWOZUXQ
+        UYIUYLLEVUCVULVUPUYLEFVUMVUQUYJUYKXQVOUXQVUBHXRZUXQUXTVUSVVDVUTXKZXSYAU
+        XQDUXOUWAUYPTUWBEUYGVVAUUPUYIUVTUYOLVVBVVAUUQUYJUVSUYNPVVCUUOUXOCOXOSXP
+        VVDUXQUYIUYOLEVUCVULVUNUYOEFVUMVUOUYJUYNXQVOVVEVVFXSYASUXQDUXOUUTUYTTUV
+        AEUVAWAZVVAUUPUYIUUSUYSLVVBVVAUUQUYJUURUYRPVVCUUOUXOUUHOXOSXPVVDUXQUYIU
+        YSLEVUCVULUYRWQFZUYSEFVUMVUCUYIUXAUXBVVHVUFUUGUXAUXPUYIUXEWJUUGUXBUXPUY
+        IUXNWJUXOUUHWRWTUYJUYRXQVOVVEVVFXSYAXDYBUUGUVQUWRUWDUWSIUUGADUVOBCUYAUX
+        CUXDUXJUXMUYBYCUUGUWDCBIJZUGNZUWCNUWSUUGADUWBCBUYAUXDUXCUXMUXJUYGYCUUGU
+        UNVVJUWCUUGUUHVVIUGUUGBCUXGUXHYDYEYEYJSYJSUUGYTUXAUXBUWGUVCQUYAUXEUXNAD
+        UVAUUHVVGYFWCUUGUWJUVFUVQIJZUVIUWDIJZIJUWFUUGUWHVVKUWIVVLIUUGYTUUAUUDUW
+        HVVKQUYAUXCUXJADUVOBUYBYFWCUUGYTUUBUUEUWIVVLQUYAUXDUXMADUWBCUYGYFWCSUUG
+        UVFUVQUVIUWDUUGUVFUUGUVEUULLEUULEFUUGYGYKZUUGXRZUUGUVDXIZUUJXIZUVEXIUUG
+        UUAUXKVVOUXCVHBGYHVJUUGYTUXKVVPUYAVHAGYHVJZUVDUUJYIYLYMRUUGUVQUUGTEUVKU
+        VPUUGUAUBIEUVOLTVRVVNUUGTEUXOUVOUYCYNVUKUBUHZEFHUXOVVRIJEFUUGUXOVVRYOWO
+        ZYPUUGUUAUUDUVKTFUXCUXJBVNVOYQRUUGUVIUUGUVHUULLEVVMVVNUUGUVGXIZVVPUVHXI
+        UUGUUBUXKVVTUXDVHCGYHVJVVQUVGUUJYIYLYMRUUGUWDUUGTEUVRUWCUUGUAUBIEUWBLTV
+        RVVNUUGTEUXOUWBUYHYNVVSYPUUGUUBUUEUVRTFUXDUXMCVNVOYQRYRXBYS $.
+    $}
+
+    $( The Legendre symbol is nonzero (and hence equal to ` 1 ` or ` -u 1 ` )
+       precisely when the arguments are coprime.  (Contributed by Mario
+       Carneiro, 5-Feb-2015.) $)
+    lgsne0 $p |- ( ( A e. ZZ /\ N e. ZZ ) ->
+                                  ( ( A /L N ) =/= 0 <-> ( A gcd N ) = 1 ) ) $=
+      ( cz wcel wa cc0 wceq co wne c1 wb c2 adantr syl wbr syl2anc cap cn cdvds
+      cexp vn vk vx vp vy clgs cgcd cif cabs cfv wdc wi 1z zdceq sylancl wn a1i
+      eqnetrd cr ad2antrr cle oveq2 sylan9eqr eqeq1d 3bitr4d lgscl 0z zapne clt
+      1ne0 cmul cv cprime cpc simpr iftrued neg1ne0 iffalsed zdclt sylc exmiddc
+      wo mpjaodan 3adant3 1zzd zcnd nnuz adantl seqf nnabscl ffvelrnd cuz mulcl
+      nnzd cc prmz ad2antrl dvdsgcdb syl3anc mpbird dvdsabsb mpbid prmnn eleq1w
+      mpd oveq1 oveq12d ifbieq1d pczcl syl12anc zexpcl eqeltrd fvmptd3 c8 eqtrd
+      cn0 cmo c7 cmin cdiv caddc simpll1 eldifsn sylanbrc cq oddprm nnnn0d mp1i
+      zq nnq nngt0 dvdsval3 q0mod 0expd oveq1d dcne sylib ad3antrrr breq1 elrab
+      zsqcl iffalse necon1aidc iftrue impbid1 zre absresq eqeq12d recnd absge0d
+      sq1 abscld 1re 0le1 sq11 mpanr12 3bitr2d lgs0 neeq1d gcdid0 w3a cneg cmpt
+      cseq lgsval4 breq1d simpl dcan2 biantrurd neg1z ifcldcd lgsfcl3 ffvelrnda
+      eqid zmulcl 3adant1 mulap0bd anbi12d zmulcld 3bitr3d bitr2d gcd2n0cl wrex
+      eluz2b3 exprmfct sylbir wf elnnuz mul02 mul01 simprr simpl1 simpl2 simprd
+      biimpri cfz dvdsle eleqtrdi elfz5 simprl simpl3 lgs2 simpld eqbrtrrd cdif
+      cpr csn lgsval3 1nn 0zd eqtr4d modqexp 0p1e1 oveq1i eqtrdi prmuz2 eluzelz
+      modqadd1 eluz2gt1 q1mod 1m1e0 pcabs pcelnn eqeltrrd seq3z rexlimdvaa syl5
+      2z 3eqtrd mpand a1d necon1ddc sylbid simp1 simp2 simp3 ifcldadc nprmdvds1
+      prmdc simpll2 simplr breq2d bitrd mtbird imnan sylibr con2d imp syl5ibcom
+      crab notbid 8nn zmodcl mpan2 nn0zd nnzi dcor elprg ad4antr dvdsgcd mpan2d
+      7nn dcbid absexpd gcdabs dvds0 syl5ibrcom necon3bd simpll3 rplpwr 3eqtr3d
+      breq2 sylibd mtod necon3bbid lgsvalmod 3netr4d expclzaplem pceq0 3bitr2rd
+      necon3i biimpar oveq2d exp0d ax-1cn 1ap0 mpbir2an eqeltrdi dvdsdc adantlr
+      ad2ant2r mulap0 jca syl2anb simprbi ex impbid 3bitrd 3expa bitr3d ) ACDZB
+      CDZEZBFGZABUFHZFIZABUGHZJGZKBFIZVXCVXDEZALTHZJGZJFUHZFIZAUIUJZJGZVXFVXHVX
+      JVXNVXLVXOLTHZJLTHZGZVXPVXCVXNVXLKVXDVXCVXNVXLVXCVXLUKZVXNVXLULVXCVXKCDZJ
+      CDZVXTVXAVYAVXBAUUAMUMVXKJUNUOVXLVXMFVXLUPVXMFGULVXTVXLJFUUBUQUUCNVXLVXMJ
+      FVXLJFUUDJFIZVXLVJUQURUUEMVXJVXQVXKVXRJVXJAUSDZVXQVXKGVXAVYDVXBVXDAUUFUTZ
+      AUUGNVXRJGVXJUUKUQUUHVXJVXOUSDZFVXOVAOZVXSVXPKZVXJAVXJAVYEUUIZUULVXJAVYIU
+      UJVYFVYGEJUSDFJVAOVYHUUMUUNVXOJUUOUUPPUUQVXJVXEVXMFVXDVXCVXEAFUFHZVXMBFAU
+      FVBVXAVYJVXMGVXBAUURMVCUUSVXJVXGVXOJVXDVXCVXGAFUGHZVXOBFAUGVBVXAVYKVXOGVX
+      BAUUTMVCVDVEVXCVXIEZVXEFQOZVXFVXHVYLVXECDZFCDZVYMVXFKVXCVYNVXIABVFMVGVXEF
+      VHUOVXAVXBVXIVYMVXHKVXAVXBVXIUVAZVYMBFVIOZAFVIOZEZJUVBZJUHZBUIUJZVKUARUAV
+      LZVMDZAWUCUFHZWUCBVNHZTHZJUHZUVCZJUVDZUJZVKHZFQOZWUKFQOZVXHVYPVXEWULFQAUA
+      WUIBWUIUVNZUVEUVFVYPWULFIZWUKFIZWUMWUNVYPWUQWUAFIZWUQEZWUPVXAVXBWUQWUSKVX
+      IVXCWURWUQVXCVYSWURVYSUPZVXCVYSEZWUAVYTFWVAVYSVYTJVXCVYSVOVPVYTFIZWVAVQUQ
+      URVXCWUTEZWUAJFWVCVYSVYTJVXCWUTVOVRVYCWVCVJUQURVXCVYSUKZVYSWUTWBVXCVYQUKZ
+      VYRUKZWVDVXCVXBVYOWVEVXAVXBVOZVGBFVSUOVXCVXAVYOWVFVXAVXBUVGVGAFVSUOVYQVYR
+      UVHVTZVYSWANWCUVIWDVYPWUAFQOZWUNEWUMWUSWUPVYPWUAWUKVYPWUAVXAVXBWUACDZVXIV
+      XCVYSVYTJCVYTCDVXCUVJUQVXCWEWVHUVKWDZWFVYPWUKVYPRCWUBWUJVYPUBUCVKCWUIJRWG
+      VYPWEVYPRCUBVLZWUIAUAWUIBWUOUVLZUVMWVLCDZUCVLZCDEWVLWVOVKHZCDVYPWVLWVOUVO
+      WHWIVXBVXIWUBRDZVXABWJZUVPZWKZWFUVQVYPWVIWURWUNWUQVYPWVJVYOWVIWURKWVKVGWU
+      AFVHUOVYPWUKCDVYOWUNWUQKWVTVGWUKFVHUOZUVRVYPWULCDVYOWUMWUPKVYPWUAWUKWVKWV
+      TUVSVGWULFVHUOZUVTUWAWWBWWAVEVYPWUNVXHVYPWUNWUQVXHWWAVYPVXHUKZWUQVXHULVYP
+      VXGCDVYBWWCVYPVXGABUWBZWNUMVXGJUNUOVYPVXGJWUKFVYPVXGJIZWUKFGZULWWCVYPVXGR
+      DZWWEWWFWWDWWGWWEEZUDVLZVXGSOZUDVMUWCZVYPWWFWWHVXGLWLUJZDWWKVXGUWDVXGUDUW
+      EUWFVYPWWJWWFUDVMVYPWWIVMDZWWJEZEZUBUCVKWOWUIWWIJWUBFWVLWODZWVOWODEWVPWOD
+      WWOWVLWVOWMWHWWOWVLJWLUJZDZEZWVLWUIUJZWWSRCWVLWUIVYPRCWUIUWGWWNWWRWVMUTWW
+      RWVLRDZWWOWXAWWRWVLUWHUWOWHWKWFWWPFWVLVKHFGWWOWVLUWIWHWWPWVLFVKHFGWWOWVLU
+      WJWHWWOWWIJWUBUWPHDZWWIWUBVAOZWWOWWIWUBSOZWXCWWOWWIBSOZWXDWWOWWIASOZWXEWW
+      OWXFWXEEZWWJVYPWWMWWJUWKWWOWWICDZVXAVXBWXGWWJKWWMWXHVYPWWJWWIWPWQZVXAVXBV
+      XIWWNUWLZVXAVXBVXIWWNUWMZWWIABWRWSWTZUWNWWOWXHVXBWXEWXDKWXIWXKWWIBXAPXBZW
+      WOWXHWVQWXDWXCULWXIVYPWVQWWNWVSMZWWIWUBUWQPXEWWOWWIWWQDWUBCDWXBWXCKWWOWWI
+      RWWQWWMWWIRDZVYPWWJWWIXCZWQZWGUWRWWOWUBWXNWNWWIJWUBUWSPWTWWOWWIWUIUJWWMAW
+      WIUFHZWWIBVNHZTHZJUHZWXTFWWOUAWWIWUHWYARWUICWUOWUCWWIGZWUDWWMWUGWXTJUAUDV
+      MXDWYBWUEWXRWUFWXSTWUCWWIAUFVBWUCWWIBVNXFXGXHWXQWWOWYAWXTCWWOWWMWXTJVYPWW
+      MWWJUWTZVPZWWOWXRCDZWXSXPDZWXTCDWWOVXAWXHWYEWXJWXIAWWIVFPWWOWWMVXBVXIWYFW
+      YCWXKVXAVXBVXIWWNUXAWWIBXIXJWXRWXSXKPXLXMWYDWWOWXTFWXSTHFWWOWXRFWXSTWWOWW
+      ILGZWXRFGWWILIZWWOWYGEZWXRLASOZFAXNXQHZJXRUXFDZJVYTUHZUHZFWYGWWOWXRALUFHZ
+      WYNWWILAUFVBWWOVXAWYOWYNGZWXJAUXBZNVCWYIWYJFWYMWYIWWILASWWOWYGVOWWOWXFWYG
+      WWOWXFWXEWXLUXCZMUXDVPXOWWOWYHEZWXRAWWIJXSHLXTHZTHZJYAHWWIXQHZJXSHZFWYSVX
+      AWWIVMLUXGUXEZDZWXRXUCGVXAVXBVXIWWNWYHYBZWYSWWMWYHXUEWWOWWMWYHWYCMZWWOWYH
+      VOWWIVMLYCYDZAWWIUXHPWYSXUCJJXSHFWYSXUBJJXSWYSXUBJWWIXQHZJWYSXUBFJYAHZWWI
+      XQHXUIWYSXUAFJWWIWYSXUACDZXUAYEDWYSVXAWYTXPDXUKXUFWYSWYTWYSXUEWYTRDXUHWWI
+      YFNZYGZAWYTXKPXUAYINVYOFYEDWYSVGFYIYHJRDJYEDWYSUXIJYJYHWYSWXOWWIYEDZWYSWW
+      MWXOXUGWXPNZWWIYJZNZWYSWXOFWWIVIOZXUOWWIYKZNZWYSXUAWWIXQHFWYTTHZWWIXQHFWW
+      IXQHZWYSAFWYTWWIXUFWYSUXJXUMXUQXUTWYSAWWIXQHZFXVBWYSWXFXVCFGZWWOWXFWYHWYR
+      MWYSWXOVXAWXFXVDKXUOXUFWWIAYLPXBWYSWXOXVBFGZXUOWXOXUNXURXVEXUPXUSWWIYMPNU
+      XKUXLWYSXVAFWWIXQWYSWYTXULYNYOXOUXRXUJJWWIXQUXMUXNUXOWYSWWIWWLDZXUIJGZWYS
+      WWMXVFXUGWWIUXPNXVFXUNJWWIVIOXVGXVFWXHXUNLWWIUXQWWIYINWWIUXSWWIUXTPNXOYOU
+      YAUXOXOWWOWYGUKZWYGWYHWBWWOWXHLCDZXVHWXIUYHWWILUNUOWWILYPYQWCYOWWOWXSWWOW
+      WIWUBVNHZWXSRWWOWWMBYEDZXVJWXSGWYCWWOVXBXVKWXKBYIZNBWWIUYBPWWOXVJRDZWXDWX
+      MWWOWWMWVQXVMWXDKWYCWXNWWIWUBUYCPWTUYDYNXOUYIUYEUYFUYGUYJUYKUYLXEUYMVYPVX
+      HWUNVYPVXHEZWUKWVOFQOZUCWOVUJZDZWUNXVNRXVPWUBWUJXVNUBUEVKXVPWUIJRWGXVNWEX
+      VNWXAEZWWTWVLVMDZAWVLUFHZWVLBVNHZTHZJUHZXVPXVRUAWVLWUHXWCRWUICWUOWUCWVLGZ
+      WUDXVSWUGXWBJUAUBVMXDXWDWUEXVTWUFXWATWUCWVLAUFVBWUCWVLBVNXFXGXHXVNWXAVOXV
+      RXVSXWBJCXVRXVSEZXVTCDZXWAXPDZXWBCDXWEVXAWVNXWFVYPVXAVXHWXAXVSVXAVXBVXIUY
+      NZYRXVSWVNXVRWVLWPZWHAWVLVFZPXWEXVSVXBVXIXWGXVRXVSVOVYPVXBVXHWXAXVSVXAVXB
+      VXIUYOYRVYPVXIVXHWXAXVSVXAVXBVXIUYPYRWVLBXIZXJXVTXWAXKPXVRXVSUPEZWEWXAXVS
+      UKXVNWVLUYSWHZUYQXMXVRXVSXWBJXVPXVNXVSXWBXVPDZWXAXVNXVSEZWVLBSOZXWNXWPUPZ
+      XWOXWPEZXVTWODZXVTFQOZXWACDZXWNXWOXWSXWPXWOXVTXWOVXAWVNXWFVXAVXBVXIVXHXVS
+      YBZXVSWVNXVNXWIWHZXWJPZWFZMXWRXWTXVTFIZXWRWVLLGZXXFWVLLIZXWRXXGEZXVTWYMFX
+      XIXVTWYNWYMXXGXWRXVTWYOWYNWVLLAUFVBXWRVXAWYPXWOVXAXWPXXBMZWYQNVCXXIWYJFWY
+      MXWRXXGWYJUPZXWRWVLASOZUPZXXGXXKXWOXWPXXMXWOXXLXWPXWOXXLXWPEZUPXXLXWQULXW
+      OXXNWVLJSOZXVSXXOUPZXVNWVLUYRZWHXWOXXNWVLVXGSOZXXOXWOWVNVXAVXBXXNXXRKXXCX
+      XBVXAVXBVXIVXHXVSUYTZWVLABWRWSXWOVXGJWVLSVYPVXHXVSVUAZVUBVUCVUDXXLXWPVUEV
+      UFVUGVUHZXXGXXLWYJWVLLASYSVUKVUIVUHVRXOVYPWYMFIZVXHXVSXWPXXGVYPVXAXYBXWHV
+      XAWYLXYBWYLUPZVXAWYLEZWYMJFXYDWYLJVYTVXAWYLVOVPVYCXYDVJUQURVXAXYCEZWYMVYT
+      FXYEWYLJVYTVXAXYCVOVRWVBXYEVQUQURVXAWYLUKZWYLXYCWBVXAXYFWYKJGZWYKXRGZWBZU
+      KZVXAXYGUKZXYHUKZXYJVXAWYKCDZVYBXYKVXAWYKVXAXNRDWYKXPDZVULAXNVUMVUNZVUOZU
+      MWYKJUNUOVXAXYMXRCDXYLXYPXRVVBVUPWYKXRUNUOXYGXYHVUQVTVXAWYLXYIVXAXYNWYLXY
+      IKXYOWYKJXRXPVURNVVCWTWYLWANWCNVUSURXWRXXHEZXVTWVLXQHZFWVLXQHZIXXFXYQAWVL
+      JXSHLXTHZTHZWVLXQHZFXYRXYSXYQWVLYUASOZUPYUBFIXYQYUCXXOXYQXVSXXPXWOXVSXWPX
+      XHXVNXVSVOZUTZXXQNXYQYUCWVLYUABUGHZSOZXXOXYQYUCXWPYUGXWOXWPXXHVUAXYQWVNYU
+      ACDZVXBYUCXWPEYUGULXYQXVSWVNYUEXWINZXYQVXAXYTXPDYUHXWRVXAXXHXXJMZXYQXYTXY
+      QWVLXUDDZXYTRDZXYQXVSXXHYUKYUEXWRXXHVOWVLVMLYCYDZWVLYFNZYGZAXYTXKPZXWOVXB
+      XWPXXHXXSUTZWVLYUABVUTWSVVAXYQYUFJWVLSXYQYUAUIUJZWUBUGHZVXOXYTTHZWUBUGHZY
+      UFJXYQYURYUTWUBUGXYQAXYTXYQAYUJWFYUOVVDYOXYQYUHVXBYUSYUFGYUPYUQYUABVVEPXY
+      QVXOWUBUGHZJGZYVAJGZXYQYVBVXGJXYQVXAVXBYVBVXGGYUJYUQABVVEPXWOVXHXWPXXHXXT
+      UTXOXYQVXORDZWVQYULYVCYVDULXYQVXAAFIZYVEYUJXYQXXMYVFXWRXXMXXHXYAMXYQXXLAF
+      XYQXXLAFGWVLFSOZXYQWVNYVGYUIWVLVVFNAFWVLSVVLVVGVVHXEAWJPXWOWVQXWPXXHXWOVX
+      BVXIWVQXXSVXAVXBVXIVXHXVSVVIZWVRPZUTYUNVXOWUBXYTVVJWSXEVVKVUBVVMVVNXYQYUC
+      YUBFXYQWXAYUHYUCYUBFGKXWOWXAXWPXXHXVSWXAXVNWVLXCWHZUTZYUPWVLYUAYLPVVOXBXY
+      QVXAYUKXYRYUBGYUJYUMAWVLVVPPXYQWXAXYSFGZYVKWXAWVLYEDFWVLVIOYVLWVLYJWVLYKW
+      VLYMPNVVQXVTFXYRXYSXVTFWVLXQXFVWANXWRXXGUKZXXGXXHWBXWRWVNXVIYVMXWOWVNXWPX
+      XCMUYHWVLLUNUOWVLLYPYQWCXWRXWFVYOXWTXXFKXWOXWFXWPXXDMVGXVTFVHUOWTXWOXXAXW
+      PXWOXWAXWOXVSVXBVXIXWGYUDXXSYVHXWKXJVUOMUCXVTXWAVVRWSXWOXWQEZXWBJXVPYVNXW
+      BXVTFTHJYVNXWAFXVTTXWOXWAFGZXWQXWOXWQWVLWUBSOZUPZWVLWUBVNHZFGZYVOXWOXWPYV
+      PXWOWVNVXBXWPYVPKXXCXXSWVLBXAPVUKXWOXVSWVQYVSYVQKYUDYVIWVLWUBVVSPXWOYVRXW
+      AFXWOXVSXVKYVRXWAGYUDXWOVXBXVKXXSXVLNBWVLUYBPVDVVTVWBVWCYVNXVTXWOXWSXWQXX
+      EMVWDXOJXVPDZJWODJFQOZVWEVWFXVOYWAUCJWOWVOJFQYSYTVWGZVWHXWOXWPUKZXWPXWQWB
+      XWOWXAVXBYWCYVJXXSWVLBVWIPXWPWANWCVWJYVTXWLYWBUQXWMUYQXLWVLXVPDZUEVLZXVPD
+      ZEZWVLYWEVKHZXVPDZXVNYWGYWHWODZYWHFQOZEZYWIYWDWWPWVLFQOZEZYWEWODZYWEFQOZE
+      ZYWLYWFXVOYWMUCWVLWOWVOWVLFQYSYTXVOYWPUCYWEWOWVOYWEFQYSYTYWNYWQEYWJYWKWWP
+      YWOYWJYWMYWPWVLYWEWMVWKWVLYWEVWLVWMVWNXVOYWKUCYWHWOWVOYWHFQYSYTVUFWHWIVYP
+      WVQVXHWVSMWKXVQWUKWODWUNXVOWUNUCWUKWOWVOWUKFQYSYTVWONVWPVWQVWRVWSVWTVXCVX
+      DUKZVXDVXIWBVXCVXBVYOYWRWVGVGBFUNUOBFYPYQWC $.
+
+    $( The Legendre symbol is nonzero (and hence equal to ` 1 ` or ` -u 1 ` )
+       precisely when the arguments are coprime.  (Contributed by Mario
+       Carneiro, 5-Feb-2015.) $)
+    lgsabs1 $p |- ( ( A e. ZZ /\ N e. ZZ ) ->
+      ( ( abs ` ( A /L N ) ) = 1 <-> ( A gcd N ) = 1 ) ) $=
+      ( cz wcel wa clgs co cabs cfv c1 wceq cle wbr cgcd cr lgscl cc0 wne syl
+      wb abscld 1re letri3 sylancl lgsle1 biantrurd cn nnne0 wn neneq adantl wo
+      zcnd nn0abscl elnn0 sylib adantr ecased ex impbid2 elnnnn0c baib cc abs00
+      cn0 necon3bid lgsne0 bitrd 3bitr3d 3bitr2d ) ACDBCDEZABFGZHIZJKZVMJLMZJVM
+      LMZEZVPABNGJKZVKVMODJODVNVQTVKVLVKVLABPZUMZUAUBVMJUCUDVKVOVPABUEUFVKVMUGD
+      ZVMQRZVPVRVKWAWBVMUHVKWBWAVKWBEWAVMQKZWBWCUIVKVMQUJUKVKWAWCULZWBVKVMVEDZW
+      DVKVLCDWEVSVLUNSZVMUOUPUQURUSUTVKWEWAVPTWFWAWEVPVMVAVBSVKWBVLQRZVRVKVLVCD
+      ZWBWGTVTWHVMQVLQVLVDVFSABVGVHVIVJ $.
+
+    $( The Legendre symbol at a square is equal to ` 1 ` .  Together with
+       ~ lgsmod this implies that the Legendre symbol takes value ` 1 ` at
+       every quadratic residue.  (Contributed by Mario Carneiro, 5-Feb-2015.)
+       (Revised by AV, 20-Jul-2021.) $)
+    lgssq $p |- ( ( ( A e. ZZ /\ A =/= 0 ) /\ N e. ZZ /\ ( A gcd N ) = 1 )
+                   -> ( ( A ^ 2 ) /L N ) = 1 ) $=
+      ( cz wcel cc0 wne wa cgcd co c1 wceq w3a cmul clgs c2 simp1l simp2 sqvald
+      cexp oveq1d simp1r lgsdir syl32anc cc zcn adantr 3ad2ant1 cabs cr syl2anc
+      cfv lgscl zred absresq syl wb lgsabs1 adantlr biimp3ar sq1 eqtrdi 3eqtr3d
+      zcnd 3eqtr4d ) ACDZAEFZGZBCDZABHIJKZLZAAMIZBNIZABNIZVMMIZAOSIZBNIJVJVEVEV
+      HVFVFVLVNKVEVFVHVIPZVPVGVHVIQZVEVFVHVIUAZVRAABUBUCVJVOVKBNVJAVGVHAUDDZVIV
+      EVSVFAUEUFUGRTVJVMUHUKZOSIZVMOSIZJVNVJVMUIDWAWBKVJVMVJVEVHVMCDVPVQABULUJZ
+      UMVMUNUOVJWAJOSIJVJVTJOSVGVHVTJKZVIVEVHWDVIUPVFABUQURUSTUTVAVJVMVJVMWCVCR
+      VBVD $.
+
+    $( The Legendre symbol at a square is equal to ` 1 ` .  (Contributed by
+       Mario Carneiro, 5-Feb-2015.) $)
+    lgssq2 $p |- ( ( A e. ZZ /\ N e. NN /\ ( A gcd N ) = 1 ) ->
+                   ( A /L ( N ^ 2 ) ) = 1 ) $=
+      ( cz wcel cn cgcd co c1 wceq w3a cmul clgs c2 cexp cc0 wne simp1 3ad2ant2
+      nnz sqvald nnne0 lgsdi syl32anc cc nncn oveq2d cabs cr lgscl syl2anc zred
+      cfv absresq syl wb lgsabs1 sylan2 biimp3ar oveq1d sq1 eqtrdi zcnd 3eqtr3d
+      3eqtr4d ) ACDZBEDZABFGHIZJZABBKGZLGZABLGZVKKGZABMNGZLGHVHVEBCDZVNBOPZVOVJ
+      VLIVEVFVGQZVFVEVNVGBSZRZVRVFVEVOVGBUARZVSABBUBUCVHVMVIALVHBVFVEBUDDVGBUER
+      TUFVHVKUGULZMNGZVKMNGZHVLVHVKUHDWAWBIVHVKVHVEVNVKCDVPVRABUIUJZUKVKUMUNVHW
+      AHMNGHVHVTHMNVEVFVTHIZVGVFVEVNWDVGUOVQABUPUQURUSUTVAVHVKVHVKWCVBTVCVD $.
+  $}
+
+  $( The Legendre symbol at any prime (even at 2) is ` 0 ` iff the prime does
+     not divide the first argument.  See definition in [ApostolNT] p. 179.
+     (Contributed by AV, 20-Jul-2021.) $)
+  lgsprme0 $p |- ( ( A e. ZZ /\ P e. Prime )
+                -> ( ( A /L P ) = 0 <-> ( A mod P ) = 0 ) ) $=
+    ( cz wcel cprime wa clgs co cc0 wceq wdc wb sylan2 0z zdceq sylancl wn cgcd
+    c1 ancoms cmo prmz lgscl simpl cn prmnn adantl zmodcld nn0zd wne wbr lgsne0
+    cdvds coprm anim1i gcdcom eqeq1d bitr2d dvdsval3 notbid 3bitrd necon4abiddc
+    syl sylan 2a1d mp2d ) ACDZBEDZFZABGHZIJZKZABUAHZIJZKZVKVNLVIVJCDZICDZVLVHVG
+    BCDZVPBUBZABUCMNVJIOPVIVMCDVQVOVIVMVIABVGVHUDVHBUEDZVGBUFZUGUHUINVMIOPVIVNV
+    JIVIVJIUJZVNQZLVLVOVIWBABRHZSJZBAUMUKZQZWCVHVGVRWBWELVSABULMVIWGBARHZSJZWEV
+    HVGWGWILBAUNTVIWHWDSVIVRVGFZWHWDJVHVGWJVHVRVGVSUOTBAUPVCUQURVIWFVNVHVGWFVNL
+    ZVHVTVGWKWABAUSVDTUTVAVEVBVF $.
+
+  $( The Legendre symbol at ` 1 ` .  See example 1 in [ApostolNT] p. 180.
+     (Contributed by Mario Carneiro, 28-Apr-2016.) $)
+  1lgs $p |- ( N e. ZZ -> ( 1 /L N ) = 1 ) $=
+    ( cz wcel c1 clgs co c2 cexp sq1 oveq1i cgcd wceq 1gcd cc0 wne wa 1z pm3.2i
+    1ne0 lgssq mp3an1 mpdan eqtr3id ) ABCZDAEFDGHFZAEFZDUEDAEIJUDDAKFDLZUFDLZAM
+    DBCZDNOZPUDUGUHUIUJQSRDATUAUBUC $.
+
+  $( The Legendre symbol at ` 1 ` .  See definition in [ApostolNT] p. 188.
+     (Contributed by Mario Carneiro, 28-Apr-2016.) $)
+  lgs1 $p |- ( A e. ZZ -> ( A /L 1 ) = 1 ) $=
+    ( cz wcel c1 clgs co c2 cexp sq1 oveq2i cgcd wceq gcd1 cn 1nn lgssq2 mp3an2
+    mpdan eqtr3id ) ABCZADEFADGHFZEFZDUADAEIJTADKFDLZUBDLZAMTDNCUCUDOADPQRS $.
+
+  $( The Legendre (Jacobi) symbol is preserved under reduction ` mod n ` when
+     ` n ` is odd.  Theorem 9.9(c) in [ApostolNT] p. 188.  (Contributed by AV,
+     20-Jul-2021.) $)
+  lgsmodeq $p |- ( ( A e. ZZ /\ B e. ZZ /\ ( N e. NN /\ -. 2 || N ) )
+               -> ( ( A mod N ) = ( B mod N ) -> ( A /L N ) = ( B /L N ) ) ) $=
+    ( cz wcel cn c2 cdvds wbr wn wa w3a cmo wceq clgs 3anass biimpri lgsmod syl
+    co 3adant2 oveq1 sylan9req 3adant1 adantr eqtrd ex ) ADEZBDEZCFEZGCHIJZKZLZ
+    ACMTZBCMTZNZACOTZBCOTZNUMUPKUQUOCOTZURUMUPUQUNCOTZUSUMUHUJUKLZUTUQNUHULVAUI
+    VAUHULKUHUJUKPQUAACRSUNUOCOUBUCUMUSURNZUPUMUIUJUKLZVBUIULVCUHVCUIULKUIUJUKP
+    QUDBCRSUEUFUG $.
+
+  $( The Legendre (Jacobi) symbol is preserved under multiplication with a
+     square of an integer coprime to the second argument.  Theorem 9.9(d) in
+     [ApostolNT] p. 188.  (Contributed by AV, 20-Jul-2021.) $)
+  lgsmulsqcoprm $p |- ( ( ( A e. ZZ /\ A =/= 0 ) /\ ( B e. ZZ /\ B =/= 0 )
+                          /\ ( N e. ZZ /\ ( A gcd N ) = 1 ) )
+                        -> ( ( ( A ^ 2 ) x. B ) /L N ) = ( B /L N ) ) $=
+    ( cz wcel cc0 wne wa cgcd co c1 wceq w3a cexp cmul clgs simpl syl anim12i
+    c2 zsqcl adantr 3anim123i cc zcn sqne0 biimpar simpr 3adant3 lgsdir syl2anc
+    wb 3anass biimpri 3adant2 lgssq oveq1d 3adant1 lgscl zcnd mulid2d 3eqtrd )
+    ADEZAFGZHZBDEZBFGZHZCDEZACIJKLZHZMZATNJZBOJCPJZVMCPJZBCPJZOJZKVPOJVPVLVMDEZ
+    VFVIMVMFGZVGHZVNVQLVEVRVHVFVKVIVCVRVDAUAUBVFVGQZVIVJQZUCVEVHVTVKVEVSVHVGVCV
+    SVDVCAUDEVSVDULAUEAUFRUGVFVGUHSUIVMBCUJUKVLVOKVPOVLVEVIVJMZVOKLVEVKWCVHWCVE
+    VKHVEVIVJUMUNUOACUPRUQVLVPVLVPVLVFVIHZVPDEVHVKWDVEVHVFVKVIWAWBSURBCUSRUTVAV
+    B $.
+
+  ${
+    $d x A $.  $d x B $.  $d x M $.  $d x N $.
+    $( Variation on ~ lgsdir valid for all ` A , B ` but only for positive
+       ` N ` .  (The exact location of the failure of this law is for
+       ` A = 0 ` , ` B < 0 ` , ` N = -u 1 ` in which case ` ( 0 /L -u 1 ) = 1 `
+       but ` ( B /L -u 1 ) = -u 1 ` .)  (Contributed by Mario Carneiro,
+       28-Apr-2016.) $)
+    lgsdirnn0 $p |- ( ( A e. ZZ /\ B e. ZZ /\ N e. NN0 ) ->
+      ( ( A x. B ) /L N ) = ( ( A /L N ) x. ( B /L N ) ) ) $=
+      ( vx cz wcel cc0 wceq cmul co clgs wa oveq1d cc zcnd adantr c1 0z sylancr
+      wdc cn0 w3a wo wn cv oveq1 eqeq2d wral id nn0z lgscl syl2anr mul01d simpr
+      wne oveq2d 3eqtr4rd cgcd lgsne0 gcdcom nn0gcdid0 eqtrd eqeq1d lgs1 adantl
+      wb oveq2 syl5ibrcom sylbid imp ad2antrr mulid2d eqtr2d zdceq sylancl dcne
+      sylib mpjaodan ralrimiva 3ad2ant3 rspcdva syl2anc mulcomd eqtr4d 3ad2ant2
+      simp2 zcn mul02d sylan9eqr 3eqtr4d simp1 jaodan neanior syl3anl3 sylan2br
+      lgsdir dcor sylc exmiddc syl ) AEFZBEFZCUAFZUBZAGHZBGHZUCZABIJZCKJZACKJZB
+      CKJZIJZHZXGUDZXDXEXMXFXDXELZGCKJZXPXKIJZXIXLXOXPXKXPIJZXQXDXPXRHZXEXDXPDU
+      EZCKJZXPIJZHZXSDEBXTBHZYBXRXPYDYAXKXPIXTBCKUFMUGXCXAYCDEUHXBXCYCDEXCXTEFZ
+      LZXPGHZYCXPGUOZYFYGLZYAGIJGYBXPYIYAYFYANFYGYFYAYEYECEFZYAEFXCYEUICUJZXTCU
+      KULOPUMYIXPGYAIYFYGUNZUPYLUQYFYHLZYBQXPIJXPYMYAQXPIYFYHYAQHZYFYHGCURJZQHZ
+      YNYFGEFZYJYHYPVFRXCYJYEYKPZGCUSSYFYPCQHZYNYFYOCQYFYOCGURJZCYFYQYJYOYTHRYR
+      GCUTSXCYTCHYECVAPVBVCYFYNYSXTQKJZQHZYEUUBXCXTVDVEYSYAUUAQCQXTKVGVCVHVIVIV
+      JMYMXPYMXPYMYQYJXPEFZRXCYJYEYHYKVKGCUKZSOVLVMYFYGTZYGYHUCYFUUCYQUUEYFYQYJ
+      UUCRYRUUDSRXPGVNVOXPGVPVQVRVSVTZXAXBXCWFZWAPXOXPXKXDXPNFXEXDXPXDYQYJUUCRX
+      CXAYJXBYKVTZUUDSOPXDXKNFXEXDXKXDXBYJXKEFUUGUUHBCUKWBOPWCWDXOXHGCKXEXDXHGB
+      IJGAGBIUFXDBXBXABNFXCBWGWEWHWIMXOXJXPXKIXOAGCKXDXEUNMMWJXDXFLZXPXJXPIJZXI
+      XLXDXPUUJHZXFXDYCUUKDEAXTAHZYBUUJXPUULYAXJXPIXTACKUFMUGUUFXAXBXCWKZWAPUUI
+      XHGCKXFXDXHAGIJGBGAIVGXDAXDAUUMOUMWIMUUIXKXPXJIUUIBGCKXDXFUNMUPWJWLXNXDAG
+      UOBGUOLZXMAGBGWMXCXAXBYJUUNXMYKABCWPWNWOXDXGTZXGXNUCXDXETZXFTZUUOXDXAYQUU
+      PUUMRAGVNVOXDXBYQUUQUUGRBGVNVOXEXFWQWRXGWSWTVR $.
+
+    $( Variation on ~ lgsdi valid for all ` M , N ` but only for positive
+       ` A ` .  (The exact location of the failure of this law is for
+       ` A = -u 1 ` , ` M = 0 ` , and some ` N ` in which case
+       ` ( -u 1 /L 0 ) = 1 ` but ` ( -u 1 /L N ) = -u 1 ` when ` -u 1 ` is not
+       a quadratic residue mod ` N ` .)  (Contributed by Mario Carneiro,
+       28-Apr-2016.) $)
+    lgsdinn0 $p |- ( ( A e. NN0 /\ M e. ZZ /\ N e. ZZ ) ->
+      ( A /L ( M x. N ) ) = ( ( A /L M ) x. ( A /L N ) ) ) $=
+      ( vx wcel cz wceq cmul co clgs wa oveq1d c1 adantr 0z sylancl zcnd oveq2d
+      cc0 wdc cn0 w3a wo wn cv oveq2 eqeq2d wral c2 cexp wne sq1 eqeq2i cle wbr
+      wb cr nn0re nn0ge0 0le1 sq11 mpanr12 syl2anc bitr3id biimpa 1lgs ad2antlr
+      1re eqtrd nn0z ad2antrr lgscl mulid2d eqtr2d cc sylan mul01d cif lgs0 syl
+      ifnefalse sylan9eq 3eqtr4rd zsqcl zdceq sylib mpjaodan ralrimiva 3ad2ant1
+      1z dcne simp3 rspcdva mulcomd eqtr4d oveq1 mul02d sylan9eqr simpr 3eqtr4d
+      simp2 jaodan neanior lgsdi syl3anl1 sylan2br dcor sylc exmiddc ) AUAEZBFE
+      ZCFEZUBZBSGZCSGZUCZABCHIZJIZABJIZACJIZHIZGZXPUDZXMXNYBXOXMXNKZASJIZYEXTHI
+      ZXRYAYDYEXTYEHIZYFXMYEYGGZXNXMYEADUEZJIZYEHIZGZYHDFCYICGZYKYGYEYMYJXTYEHY
+      ICAJUFLUGXJXKYLDFUHXLXJYLDFXJYIFEZKZAUIUJIZMGZYLYPMUKZYOYQKZYKMYEHIYEYSYJ
+      MYEHYSYJMYIJIZMYSAMYIJYOYQAMGZYQYPMUIUJIZGZYOUUAUUBMYPULUMXJUUCUUAUPZYNXJ
+      AUQEZSAUNUOZUUDAURAUSUUEUUFKMUQESMUNUOUUDVHUTAMVAVBVCNVDVELYNYTMGXJYQYIVF
+      VGVILYSYEYSYEYSAFEZSFEZYEFEZXJUUGYNYQAVJZVKOASVLZPQVMVNYOYRKZYJSHISYKYEUU
+      LYJYOYJVOEYRYOYJXJUUGYNYJFEUUJAYIVLVPQNVQUULYESYJHYOYRYEYQMSVRZSYOUUGYEUU
+      MGXJUUGYNUUJNZAVSVTYPMMSWAWBZRUUOWCYOYQTZYQYRUCYOYPFEZMFEUUPYOUUGUUQUUNAW
+      DVTWJYPMWEPYPMWKWFWGWHWIZXJXKXLWLZWMNYDYEXTXMYEVOEXNXMYEXMUUGUUHUUIXJXKUU
+      GXLUUJWIZOUUKPQNXMXTVOEXNXMXTXMUUGXLXTFEUUTUUSACVLVCQNWNWOYDXQSAJXNXMXQSC
+      HISBSCHWPXMCXMCUUSQWQWRRYDXSYEXTHYDBSAJXMXNWSRLWTXMXOKZYEXSYEHIZXRYAXMYEU
+      VBGZXOXMYLUVCDFBYIBGZYKUVBYEUVDYJXSYEHYIBAJUFLUGUURXJXKXLXAZWMNUVAXQSAJXO
+      XMXQBSHISCSBHUFXMBXMBUVEQVQWRRUVAXTYEXSHUVACSAJXMXOWSRRWTXBYCXMBSUKCSUKKZ
+      YBBSCSXCXJUUGXKXLUVFYBUUJABCXDXEXFXMXPTZXPYCUCXMXNTZXOTZUVGXMXKUUHUVHUVEO
+      BSWEPXMXLUUHUVIUUSOCSWEPXNXOXGXHXPXIVTWG $.
+  $}
+
+
+$(
 ###############################################################################
   GUIDES AND MISCELLANEA
 ###############################################################################
@@ -158717,6 +159997,11 @@ htmldef "^c" as
     "<IMG SRC='subc.gif' WIDTH=6 HEIGHT=19 ALT='c' TITLE='c'> ";
   althtmldef "^c" as "&uarr;<SUB>&#x1D450;</SUB>";
   latexdef "^c" as "\uparrow_c";
+htmldef "/L" as
+    " <IMG SRC='solidus.gif' WIDTH=6 HEIGHT=19 ALT=' /' TITLE='/'>" +
+    "<IMG SRC='subcl.gif' WIDTH=8 HEIGHT=19 ALT='L' TITLE='L'>";
+  althtmldef "/L" as " /<sub><i>L</i></sub> ";
+  latexdef "/L" as " /_L ";
 
 /* htmldef, althtmldef, latexdef for mathboxes */
 /* Note the "Mathbox of" instead of "Mathbox for" to make searching easier. */
